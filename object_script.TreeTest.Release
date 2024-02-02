@@ -1,0 +1,12 @@
+release/main.o
+release/BaseSensor.o
+release/Reading.o
+release/TreeNode.o
+release/LeafNode.o
+release/Tree.o
+release/SensorFactory.o
+release/MainWindow.o
+release/TreeWidget.o
+release/moc_Tree.o
+release/moc_MainWindow.o
+release/moc_TreeWidget.o

@@ -10,7 +10,7 @@ private:
   QString name;
   const unsigned int id;
 protected:
-  BaseSensor(QString n): name(n), id(++counter) {};
+  BaseSensor(const QString& n): name(n), id(++counter) {};
 public:
   QString getName() const;
   void setName(QString s);

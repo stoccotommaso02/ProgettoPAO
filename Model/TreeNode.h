@@ -23,4 +23,5 @@ protected:
   bool appendChild(TreeNode* child);
   bool removeChildren(int pos, int count);
 };
+
 #endif

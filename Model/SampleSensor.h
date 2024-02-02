@@ -5,7 +5,7 @@
 
 class SampleSensor : public BaseSensor{
 public:
-  SampleSensor(QString name): BaseSensor(name){};
+  SampleSensor(const QString& name): BaseSensor(name){};
 
   virtual SampleReading* simulate(const Settings& setting) const override{
     return new SampleReading();

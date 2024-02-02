@@ -3,16 +3,16 @@
 #include<QMessageBox>
 #include<QSplitter>
 
-MainWindow::MainWindow(Tree* t, QWidget* parent): QMainWindow(parent), unsaved_changes(false), treeModel(t){
+MainWindow::MainWindow(Tree* t, QWidget* parent): QMainWindow(parent), unsaved_changes(false), tree_model(t){
   QSplitter* splitter = new QSplitter(this);
   setCentralWidget(splitter);
 
-  treeView = new QTreeView();
-  splitter->addWidget(treeView);
+  tree_view = new TreeWidget(tree_model);
+  splitter->addWidget(tree_view);
 };
 
 void MainWindow::updateModel(){
-  treeView->setModel(treeModel);
+
 }
 
 void MainWindow::close(){

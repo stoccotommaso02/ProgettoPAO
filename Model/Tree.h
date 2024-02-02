@@ -26,6 +26,8 @@ public:
   bool removeRows(int position, int rows, const QModelIndex& parent =QModelIndex()) override;
   bool appendNode(QString name, const QModelIndex& parent =QModelIndex());
   bool appendSensor(BaseSensor* sensor, const QModelIndex& parent =QModelIndex());
+  bool removeNode(const QModelIndex& index =QModelIndex());
+  void resetTree();
 };
 
 #endif

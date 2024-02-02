@@ -1,0 +1,12 @@
+debug/main.o
+debug/BaseSensor.o
+debug/Reading.o
+debug/TreeNode.o
+debug/LeafNode.o
+debug/Tree.o
+debug/SensorFactory.o
+debug/MainWindow.o
+debug/TreeWidget.o
+debug/moc_Tree.o
+debug/moc_MainWindow.o
+debug/moc_TreeWidget.o

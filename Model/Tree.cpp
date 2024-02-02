@@ -1,5 +1,4 @@
 #include"Tree.h"
-#include<utility>
 
 Tree::~Tree(){
   removeRows(0, root->childCount(), QModelIndex());
@@ -127,11 +126,22 @@ bool Tree::appendNode(QString name, const QModelIndex& parent){
 
 bool Tree::appendSensor(BaseSensor* sensor, const QModelIndex& parent){
   TreeNode* parentNode = getNode(parent);
-  if(!parentNode->isLeaf()){
+  if(!parentNode->isLeaf() && sensor != nullptr){
     beginInsertRows(parent, parentNode->childCount(), parentNode->childCount());
     const bool success = parentNode->appendChild(new LeafNode(sensor, parentNode));
     endInsertRows();
     return success;
   }
   return false;
+}
+
+bool Tree::removeNode(const QModelIndex& index){
+  return removeRows(index.row(), 1, index.parent());
+}
+
+void Tree::resetTree(){
+  beginResetModel();
+  for(TreeNode* t : root->children)
+    delete t;
+  endResetModel();
 }

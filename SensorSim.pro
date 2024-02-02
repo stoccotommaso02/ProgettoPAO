@@ -12,7 +12,9 @@ HEADERS +=  Model/BaseSensor.h \
             Model/LeafNode.h \
             Model/Tree.h \
             Model/sampletree.h \
-            View/MainWindow.h
+            Model/SensorFactory.h \
+            View/MainWindow.h \
+            View/TreeWidget.h
 
 SOURCES +=  main.cpp \
             Model/BaseSensor.cpp \
@@ -20,4 +22,6 @@ SOURCES +=  main.cpp \
             Model/TreeNode.cpp \
             Model/LeafNode.cpp \
             Model/Tree.cpp \
-            View/MainWindow.cpp
+            Model/SensorFactory.cpp \
+            View/MainWindow.cpp \
+            View/TreeWidget.cpp
