@@ -14,6 +14,7 @@ HEADERS +=  Model/BaseSensor.h \
             Model/sampletree.h \
             Model/SensorFactory.h \
             View/MainWindow.h \
+            View/DTreeView.h \
             View/TreeWidget.h
 
 SOURCES +=  main.cpp \
@@ -24,4 +25,5 @@ SOURCES +=  main.cpp \
             Model/Tree.cpp \
             Model/SensorFactory.cpp \
             View/MainWindow.cpp \
+            View/DTreeView.cpp \
             View/TreeWidget.cpp

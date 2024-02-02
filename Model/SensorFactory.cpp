@@ -13,6 +13,7 @@ QMap<QString, SensorFactory::constructSensor> SensorFactory::type_map;
 
 void SensorFactory::registerType(const QString& typekey, constructSensor constructor){
   type_map.insert(typekey, constructor);
+  concrete_sensor_types.append(typekey);
 }
 
 BaseSensor* SensorFactory::createSensor(const QString& name, const QString& type){

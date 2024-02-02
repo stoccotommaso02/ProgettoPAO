@@ -1,37 +1,6 @@
 #include"TreeWidget.h"
 
-/*#ifndef TREEWIDGET_H
-#define TREEWIDGET_H
-#include<QWidget>
-#include<QTreeView>
-#include<QPushButton>
-#include"../Model/Tree.h"
-
-class TreeWidget : public QWidget{
-  Q_OBJECT
-
-private:
-  Tree* tree_model;
-  QPushButton* create_node;
-  QPushButton* create_sensor;
-  QPushButton* remove_node;
-
-public:
-  explicit TreeWidget(Tree* t, QWidget* parent =nullptr);
-
-public slots:
-  void refresh();
-  void createNode(QString n);
-  void createSensor(BaseSensor* sensor);
-  void removeNode();
-};
-
-#endif
-*/
-
-QStringList TreeWidget::sensor_types = {"Sample"};
-
-TreeWidget::TreeWidget(Tree* t, QWidget* parent): QWidget(parent){
+TreeWidget::TreeWidget(Tree* t, QWidget* parent): tree_model(t), QWidget(parent){
   QVBoxLayout* vbox = new QVBoxLayout(this);
   vbox->setAlignment(Qt::AlignTop | Qt::AlignCenter);
   QHBoxLayout* hbox = new QHBoxLayout();
@@ -41,7 +10,7 @@ TreeWidget::TreeWidget(Tree* t, QWidget* parent): QWidget(parent){
   create_sensor = new QPushButton("Add sensor");
   remove_node = new QPushButton("Delete node");
   
-  tree_view = new QTreeView();
+  tree_view = new DTreeView();
   tree_view->setModel(tree_model);
 
   //Layout of button commands
@@ -72,9 +41,9 @@ void TreeWidget::createNode(){
 void TreeWidget::createSensor(){
   QModelIndex parent = tree_view->selectionModel()->currentIndex();
   bool ok;
-  QString name = QInputDialog::getText(this, "Create sensor:", "Sensor name:", QLineEdit::Normal, "", &ok);
+  QString name = QInputDialog::getText(this, "Create sensor", "Sensor name:", QLineEdit::Normal, "", &ok);
   if(!ok) return;
-  QString type = QInputDialog::getItem(this, "Create sensor", "Select type:", sensor_types, 0, false, &ok);
+  QString type = QInputDialog::getItem(this, "Create sensor", "Select type:", SensorFactory::concrete_sensor_types, 0, false, &ok);
   if(!ok) return;
   tree_model->appendSensor(SensorFactory::createSensor(name, type), parent);
 }

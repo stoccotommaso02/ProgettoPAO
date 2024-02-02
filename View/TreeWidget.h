@@ -2,11 +2,11 @@
 #define TREEWIDGET_H
 #include<QWidget>
 #include<QVBoxLayout>
-#include<QTreeView>
 #include<QPushButton>
 #include<QMessageBox>
 #include<QInputDialog>
 #include<QStackedWidget>
+#include"DTreeView.h"
 #include"../Model/Tree.h"
 #include"../Model/SensorFactory.h"
 
