@@ -31,6 +31,13 @@ TreeWidget::TreeWidget(Tree* t, QWidget* parent): tree_model(t), QWidget(parent)
 
 void TreeWidget::createNode(){
   QModelIndex parent = tree_view->selectionModel()->currentIndex();
+
+  if(tree_model->leaf(parent)){
+    QMessageBox::StandardButton warn;
+    warn = QMessageBox::warning(this, "Invalid operation", "Cannot add a child to a sensor node", QMessageBox::Ok);
+    return;
+  }
+  
   bool ok;
   QString name = QInputDialog::getText(this, "Create node", "Node name:", QLineEdit::Normal, "", &ok);
   if(ok)
@@ -40,6 +47,13 @@ void TreeWidget::createNode(){
 
 void TreeWidget::createSensor(){
   QModelIndex parent = tree_view->selectionModel()->currentIndex();
+
+    if(tree_model->leaf(parent)){
+    QMessageBox::StandardButton warn;
+    warn = QMessageBox::warning(this, "Invalid operation", "Cannot add a child to a sensor node", QMessageBox::Ok);
+    return;
+  }
+
   bool ok;
   QString name = QInputDialog::getText(this, "Create sensor", "Sensor name:", QLineEdit::Normal, "", &ok);
   if(!ok) return;

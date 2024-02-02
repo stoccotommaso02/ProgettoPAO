@@ -38,6 +38,10 @@ QModelIndex Tree::parent(const QModelIndex& index) const{
   return createIndex(parentNode->row(), 0, parentNode);
 }
 
+bool Tree::leaf(const QModelIndex& index) const{
+  return getNode(index)->isLeaf();
+}
+
 int Tree::rowCount(const QModelIndex& parent) const{
   if(parent.isValid() && parent.column() > 0)
     return 0;

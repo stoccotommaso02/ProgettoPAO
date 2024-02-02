@@ -10,6 +10,7 @@ public:
 };*/
 
 QMap<QString, SensorFactory::constructSensor> SensorFactory::type_map;
+QStringList SensorFactory::concrete_sensor_types;
 
 void SensorFactory::registerType(const QString& typekey, constructSensor constructor){
   type_map.insert(typekey, constructor);
