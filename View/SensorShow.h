@@ -22,7 +22,6 @@ private:
 	QDoubleSpinBox* max_range;
 public:
 	SensorShow(BaseSensor* s, QWidget* parent);
-	void show();
 	void refresh();
 };
 

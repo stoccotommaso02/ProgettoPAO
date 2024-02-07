@@ -1,11 +1,11 @@
 #include "SensorShow.h"
 
-SensorShow::SensorShow(BaseSensor* s, QWidget* parent): QWidget(parent){
+SensorShow::SensorShow(BaseSensor* s, QWidget* parent):QWidget(parent), sensor(s){
   QHBoxLayout* box= new QHBoxLayout(this);
 	QVBoxLayout* b1= new QVBoxLayout();
 	QVBoxLayout* b2= new QVBoxLayout();
 	QHBoxLayout* b2_2= new QHBoxLayout();
-	type_image = new QLabel("icon");
+	type_image = new QLabel("on");
 	sensor_name=new QLabel();
 	sensor_id=new QLabel();
 	sensor_type=new QLabel();
@@ -17,6 +17,7 @@ SensorShow::SensorShow(BaseSensor* s, QWidget* parent): QWidget(parent){
 	box->insertWidget(0,type_image);
 	b1->setAlignment(Qt::AlignLeft | Qt:: AlignTop);
 	b1->addWidget(sensor_name);
+	b1->addStretch();
 	b1->addWidget(sensor_id);
 	b1->addWidget(sensor_type);
 	b2_2->setAlignment(Qt::AlignCenter);
@@ -30,7 +31,7 @@ SensorShow::SensorShow(BaseSensor* s, QWidget* parent): QWidget(parent){
 	box->addWidget(simulate);
 };
 
-void SensorShow:: show(){
+void SensorShow::refresh(){
 	sensor_name->setText("Name:" + sensor->getName());
 	sensor_id->setText( "Id:" + QString::number(sensor->getId()));
 	TypeSensorVisitor v;
@@ -40,7 +41,3 @@ void SensorShow:: show(){
 	min_range->value();
 	max_range->value();
 };
-
-void SensorShow::refresh(){
-	(*this).show();
-}
