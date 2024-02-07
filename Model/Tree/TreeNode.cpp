@@ -41,10 +41,10 @@ bool TreeNode::setName(QString n){
   return true;
 }
 
-bool TreeNode::appendChild(TreeNode* child){
+TreeNode* TreeNode::appendChild(TreeNode* child){
   children.append(child);
   child->parent = this;
-  return true;
+  return child;
 }
 
 bool TreeNode::removeChildren(int pos, int count){
@@ -57,3 +57,18 @@ bool TreeNode::removeChildren(int pos, int count){
   }
   return false;
 }
+/*
+QJsonObject TreeNode::toJson() const{
+  QJsonObject json;
+  QJsonArray childrenArray;
+  for(TreeNode* c : children){
+    childrenArray.append(c->toJson());
+  }
+  json["name"] = name;
+  json["children"] = childrenArray;
+  return json;
+}
+
+TreeNode* TreeNode::fromJson(const QJsonObject& json){
+
+}*/

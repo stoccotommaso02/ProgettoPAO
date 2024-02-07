@@ -1,6 +1,8 @@
 #include"BaseSensor.h"
 
-unsigned int BaseSensor::counter = 0;
+BaseSensor::BaseSensor(const QString& n, int i): name(n), id(i){
+  counter = counter>i? counter : id;
+};
 
 QString BaseSensor::getName() const{
   return name;
@@ -10,6 +12,6 @@ void BaseSensor::setName(QString s){
   name = s;
 }
 
-unsigned int BaseSensor::getId() const{
+int BaseSensor::getId() const{
   return id;
 }

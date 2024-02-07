@@ -4,9 +4,11 @@
 #include<QString>
 
 class Tree;
+class JsonTreeParser;
 
 class TreeNode{
   friend class Tree;
+  friend class JsonTreeParser;
 protected:
   TreeNode* parent;
   QList<TreeNode*> children;
@@ -20,7 +22,7 @@ protected:
   TreeNode* getChild(int row);
   virtual QVariant getData(int column) const;
   virtual bool setName(QString n);
-  bool appendChild(TreeNode* child);
+  TreeNode* appendChild(TreeNode* child);
   bool removeChildren(int pos, int count);
 };
 
