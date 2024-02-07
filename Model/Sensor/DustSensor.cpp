@@ -1,10 +1,6 @@
 #include "DustSensor.h"
 
-Reading* DustSensor::simulate(const QString& name, int entries) const{
-
-};
-
-DustSensor* DustSensor:: clone() const {
+DustSensor* DustSensor::clone() const {
 	return new DustSensor(*this);
 }
 
