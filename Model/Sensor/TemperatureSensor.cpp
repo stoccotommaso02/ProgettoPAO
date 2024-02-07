@@ -9,3 +9,7 @@ TemperatureSensor* TemperatureSensor:: clone() const {
 void TemperatureSensor::accept(SensorVisitor& v){
   v.visit(*this);
 }
+
+Reading* TemperatureSensor::simulate(const QString& name, int numEntries) const{
+  return nullptr;
+}

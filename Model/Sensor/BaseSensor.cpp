@@ -1,5 +1,7 @@
 #include"BaseSensor.h"
 
+int BaseSensor::counter = 0;
+
 BaseSensor::BaseSensor(const QString& n, int i): name(n), id(i){
   counter = counter>i? counter : id;
 };

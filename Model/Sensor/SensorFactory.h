@@ -17,9 +17,4 @@ public:
   static BaseSensor* loadSensor(const QString& name, int id, const QString& type);
 };
 
-
-struct TypeRegistrar{
-  TypeRegistrar();
-};
-
 #endif

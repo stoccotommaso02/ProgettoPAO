@@ -11,3 +11,7 @@ DustSensor* DustSensor:: clone() const {
 void DustSensor::accept(SensorVisitor& v){
   v.visit(*this);
 }
+
+Reading* DustSensor::simulate(const QString& name, int numEntries) const{
+  return nullptr;
+}

@@ -1,6 +1,6 @@
 #ifndef W_SENSOR_H
 #define W_SENSOR_H
-#include "baseSensor.h"
+#include"BaseSensor.h"
 
 class WindSensor: public BaseSensor{
 public:

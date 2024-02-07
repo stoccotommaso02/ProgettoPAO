@@ -6,7 +6,7 @@
 
 class BaseSensor{
 private:
-  static unsigned int counter;
+  static int counter;
   QString name;
   const int id;
 protected:

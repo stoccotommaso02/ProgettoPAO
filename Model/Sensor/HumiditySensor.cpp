@@ -11,3 +11,7 @@ HumiditySensor* HumiditySensor:: clone() const {
 void HumiditySensor::accept(SensorVisitor& v){
   v.visit(*this);
 }
+
+Reading* HumiditySensor::simulate(const QString& name, int numEntries) const{
+  return nullptr;
+}

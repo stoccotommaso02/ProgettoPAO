@@ -7,3 +7,7 @@ RainSensor* RainSensor::clone() const {
 void RainSensor::accept(SensorVisitor& v){
   v.visit(*this);
 }
+
+Reading* RainSensor::simulate(const QString& name, int numEntries) const{
+  return nullptr;
+}

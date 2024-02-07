@@ -10,7 +10,7 @@ HEADERS +=  Model/Sensor/SensorFactory.h \
             Model/Sensor/HumiditySensor.h \
             Model/Sensor/DustSensor.h \
             Model/Sensor/WindSensor.h \
-            Model/Sensor/SensorVisitor.h
+            Model/Sensor/SensorVisitor.h \
             Model/Sensor/TypeSensorVisitor.h \
             Model/Reading/Reading.h \
             Model/Reading/HumidityReading.h \
@@ -18,6 +18,7 @@ HEADERS +=  Model/Sensor/SensorFactory.h \
             Model/Reading/WindReading.h \
             Model/Reading/DustReading.h \
             Model/Reading/RainReading.h \
+            Model/Reading/ReadingFactory.h \
             Model/TypeRegistrar.h \
             View/SensorShow.h
 
@@ -35,6 +36,7 @@ SOURCES +=  Model/Sensor/SensorFactory.cpp \
             Model/Reading/RainReading.cpp \
             Model/Reading/WindReading.cpp \
             Model/Reading/DustReading.cpp \
+            Model/Reading/ReadingFactory.cpp \
             Model/TypeRegistrar.cpp \
             View/SensorShow.cpp \
             newmain.cpp
