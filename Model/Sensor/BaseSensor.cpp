@@ -10,7 +10,7 @@ QString BaseSensor::getName() const{
   return name;
 }
 
-void BaseSensor::setName(QString s){
+void BaseSensor::setName(const QString& s){
   name = s;
 }
 

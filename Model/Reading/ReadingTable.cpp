@@ -1,20 +1,5 @@
 #include"ReadingTable.h"
-/*class ReadingTable : public QAbstractTableModel{
-private:
-  ReadingTable(): max_entries(0){};
-  QList<Reading*> table;
-  int max_entries;
-public:
-  static ReadingTable* addTable();
-  virtual ~ReadingTable();
-  virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
-  virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
-  virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
-  virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
-  void append(Reading* reading);
-  void remove(Reading* reading);
-  void remove(int position);
-};*/
+
 ReadingTable::~ReadingTable(){};
 
 Reading* ReadingTable::getReading(const QModelIndex& index) const{
@@ -57,15 +42,27 @@ QVariant ReadingTable::headerData(int section, Qt::Orientation orientation, int 
 }
 
 void ReadingTable::append(Reading* reading){
+  if(table.contains(reading) || reading == nullptr)
+    return;
   beginInsertRows(QModelIndex(), rowCount(), rowCount());
   int size = reading->getSize();
   if(size > max_entries){
     beginInsertColumns(QModelIndex(), max_entries, size-1);
     table.append(reading);
-    endInsertColumns;
+    endInsertColumns();
   }
   else{
     table.append(reading);
   }
   endInsertRows();
+}
+
+void ReadingTable::remove(Reading* reading){
+  beginRemoveRows(QModelIndex(), table.indexOf(reading), table.indexOf(reading));
+  table.removeAll(reading);
+  endRemoveRows();
+}
+
+void ReadingTable::remove(const QModelIndex& index){
+  remove(getReading(index));
 }

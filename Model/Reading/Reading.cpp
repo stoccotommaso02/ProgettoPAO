@@ -16,7 +16,7 @@ int Reading::getSize() const{
   return reading->count();
 }
 
-QVariant Reading::getValue(int index) const{
+const QVariant Reading::getValue(int index) const{
   if(index < 0 || index >= reading->count())
     return QVariant();
   return reading->at(index);

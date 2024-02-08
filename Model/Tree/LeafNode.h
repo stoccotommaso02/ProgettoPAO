@@ -2,7 +2,8 @@
 #define LEAFNODE_H
 #include"TreeNode.h"
 #include"../Sensor/BaseSensor.h"
-#include"Tree.h"
+
+class Tree;
 
 class LeafNode : public TreeNode{
   friend class Tree;
@@ -13,7 +14,7 @@ private:
   virtual bool isLeaf() const override;
   virtual int childCount() const override;
   QVariant getData(int column) const;
-  virtual bool setName(QString n) override;
+  virtual bool setName(const QString& n) override;
 };
 
 #endif

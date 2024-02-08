@@ -4,7 +4,7 @@
 
 class RainReading: public Reading {
 public:
-  RainReading(QString n, const QList<double>* v): Reading(n,v) {};
+  RainReading(const QString& n, const QList<double>* v): Reading(n,v) {};
   virtual void accept(ReadingVisitor& rv) override;
 };
 

@@ -8,6 +8,7 @@
 #include<QJsonArray>
 #include"TreeNode.h"
 #include"LeafNode.h"
+#include"NodeList.h"
 #include"../Sensor/BaseSensor.h"
 
 class Tree : public QAbstractItemModel{
@@ -19,6 +20,7 @@ private:
   TreeNode* root;
   TreeNode* getNode(const QModelIndex& index) const;
   QModelIndex getIndex(TreeNode* node) const;
+  void populateSearch(TreeNode* node, NodeList* results) const;
 
   void jsonToNode(const QJsonObject& json, TreeNode* parent);
   void jsonToLeafNode(const QJsonObject& json, TreeNode* parent);
@@ -51,6 +53,7 @@ public:
   bool removeNode(const QModelIndex& index =QModelIndex());
   BaseSensor* getSensor(const QModelIndex& index);
   BaseSensor* getSensor(TreeNode* t);
+  NodeList* search(const QString& query) const;
   void resetTree();
   void fromJson(const QJsonObject& json);
   QJsonObject toJson() const;

@@ -1,5 +1,5 @@
 #include"LeafNode.h"
-#include"../Sensor/TypeVisitor.h"
+#include"../Sensor/TypeSensorVisitor.h"
 
 LeafNode::~LeafNode(){
   delete sensor;
@@ -14,7 +14,7 @@ int LeafNode::childCount() const{
 }
 
 QVariant LeafNode::getData(int column) const{
-  TypeVisitor t; //NOTE: Cannot be initialized within a switch clause, so has to be done beforehand
+  TypeSensorVisitor t; //NOTE: Cannot be initialized within a switch clause, so has to be done before
   switch(column){
     case 0:
       return name;
@@ -32,7 +32,7 @@ QVariant LeafNode::getData(int column) const{
   }
 }
 
-bool LeafNode::setName(QString n){
+bool LeafNode::setName(const QString& n){
   sensor->setName(n);
   name = n;
   return true;

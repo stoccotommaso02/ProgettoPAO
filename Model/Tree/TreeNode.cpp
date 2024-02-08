@@ -36,7 +36,7 @@ QVariant TreeNode::getData(int column) const{
   return QVariant();
 };
 
-bool TreeNode::setName(QString n){
+bool TreeNode::setName(const QString& n){
   name = n;
   return true;
 }
@@ -57,18 +57,7 @@ bool TreeNode::removeChildren(int pos, int count){
   }
   return false;
 }
-/*
-QJsonObject TreeNode::toJson() const{
-  QJsonObject json;
-  QJsonArray childrenArray;
-  for(TreeNode* c : children){
-    childrenArray.append(c->toJson());
-  }
-  json["name"] = name;
-  json["children"] = childrenArray;
-  return json;
+
+QString TreeNode::getName() const{
+  return name;
 }
-
-TreeNode* TreeNode::fromJson(const QJsonObject& json){
-
-}*/

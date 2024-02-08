@@ -4,7 +4,7 @@
 
 class DustReading: public Reading {
 public:
-  DustReading(QString n, const QList<double>* v): Reading(n,v) {};
+  DustReading(const QString& n, const QList<double>* v): Reading(n,v) {};
   virtual void accept(ReadingVisitor& v) override;
 };
 

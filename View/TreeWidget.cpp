@@ -1,5 +1,13 @@
 #include"TreeWidget.h"
 
+/*  Tree* tree_model;
+  QStackedWidget* stack;
+  QPushButton* create_node;
+  QPushButton* create_sensor;
+  QPushButton* remove_node;
+  QTreeView* tree_view;
+  QLineEdit* searchbar;*/
+
 TreeWidget::TreeWidget(Tree* t, QWidget* parent): tree_model(t), QWidget(parent){
   QVBoxLayout* vbox = new QVBoxLayout(this);
   vbox->setAlignment(Qt::AlignTop | Qt::AlignCenter);
@@ -66,35 +74,3 @@ void TreeWidget::removeNode(){
   QModelIndex index = tree_view->selectionModel()->currentIndex();
   tree_model->removeNode(index);
 }
-
-/*
-void TreeWidget::createNode(){
-  QModelIndexList indexes = tree_view->selectionModel()->selectedIndexes();
-  if(indexes.empty()){
-      bool ok;
-      QString name = QInputDialog::getText(this, "Insert name", "Name:", QLineEdit::Normal, "", &ok);
-      if(ok)
-        tree_model->appendNode(name);
-      return;
-  }
-  if(indexes.count() == 1){
-      bool ok;
-      QString name = QInputDialog::getText(this, "Insert name", "Name:", QLineEdit::Normal, "", &ok);
-      if(ok)
-        tree_model->appendNode(name, indexes.at(0));
-      return;
-  }
-  QMessageBox::StandardButton warn;
-  warn = QMessageBox::warning(this, "Too many node selected", "Please select only one node.", QMessageBox::Ok);
-  return;
-}
-
-void TreeWidget::createSensor(){
-  QModelIndexList indexes = tree_view->selectionModel()->selectedIndexes();
-  if(indexes.empty()){
-    bool ok;
-    
-  }
-
-}
-*/

@@ -16,7 +16,7 @@ public:
   void setName(QString n);
   QString getName() const;
   int getSize() const;
-  QVariant getValue(int index) const;
+  const QVariant getValue(int index) const;
   virtual void accept(ReadingVisitor& v) =0;
 };
 

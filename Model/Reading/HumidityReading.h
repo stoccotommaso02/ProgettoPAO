@@ -4,7 +4,7 @@
 
 class HumidityReading: public Reading {
 public:
-  HumidityReading(QString n, const QList<double>* v): Reading(n,v) {};
+  HumidityReading(const QString& n, const QList<double>* v): Reading(n,v) {};
   virtual void accept(ReadingVisitor& rv) override;
 };
 

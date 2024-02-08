@@ -20,7 +20,7 @@ public:
   virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
   void append(Reading* reading);
   void remove(Reading* reading);
-  void remove(int position);
+  void remove(const QModelIndex& index);
 };
 
 #endif

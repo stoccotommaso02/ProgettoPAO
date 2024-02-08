@@ -23,6 +23,18 @@ QModelIndex Tree::getIndex(TreeNode* node) const{
   return index(node->row(), 0, getIndex(node->getParent()));
 }
 
+void Tree::populateSearch(TreeNode* node, NodeList* results) const{
+  if(node == nullptr)
+    return;
+  if(node->name.contains(results->query))
+    results->appendResult(node);
+  if(!node->isLeaf()){
+    for(TreeNode* const n : node->children){
+      populateSearch(n, results);
+    }
+  }
+}
+
 Tree* Tree::tree(){
   if(instance == nullptr)
     instance = new Tree();
@@ -177,6 +189,15 @@ BaseSensor* Tree::getSensor(TreeNode* node){
   return nullptr; 
 }
 
+NodeList* Tree::search(const QString& query) const{
+  NodeList* results = new NodeList(query);
+  //Cannot return root, iterating on its children
+  for(TreeNode* const n : root->children){
+    populateSearch(n, results);
+  }
+  return results;
+}
+
 void Tree::resetTree(){
   beginResetModel();
   for(TreeNode* t : root->children)
@@ -216,13 +237,18 @@ void Tree::jsonToLeafNode(const QJsonObject& json, TreeNode* parent){
   QString name = json["name"].toString();
   QString type = json["type"].toString();
   int id = json["id"].toDouble();
+  bool has_minmax = (json.contains("min") && json["min"].isDouble() && json.contains("max") && json["max"].isDouble());
   TreeNode* node;
-  if(parent == nullptr){
-    node = root->appendChild(new LeafNode(SensorFactory::loadSensor(name, id, type)));
-    node->parent = nullptr;
+  if(!has_minmax){
+    if(parent == nullptr){
+      node = root->appendChild(new LeafNode(SensorFactory::loadSensor(name, id, type)));
+      node->parent = nullptr;
+    }
+    else
+      node = parent->appendChild(new LeafNode(SensorFactory::loadSensor(name, id, type)));
   }
-  else
-    parent->appendChild(new LeafNode(SensorFactory::loadSensor(name, id, type)));
+  if(has_minmax)
+    dynamic_cast<LeafNode*>(node)->sensor->setMinMax(json["min"].toDouble(), json["max"].toDouble());
 }
 
 void Tree::fromJson(const QJsonObject& json){
@@ -265,6 +291,8 @@ QJsonObject Tree::leafNodeToJson(TreeNode* node) const{
   json.insert("name", leaf->sensor->getName());
   json.insert("type", v.getType());
   json.insert("id", leaf->sensor->getId());
+  json.insert("min", leaf->sensor->getMin());
+  json.insert("max", leaf->sensor->getMax());
   return json;
 }
 
@@ -273,7 +301,6 @@ QJsonObject Tree::toJson() const{
 }
 
 void Tree::importSection(const QJsonObject& json, TreeNode* parent, QMap<int, int>* changed_ids){
-  QMap<int, int>* changed_ids = new QMap<int, int>();
   importNode(json, parent, changed_ids);
 }
 
@@ -316,13 +343,17 @@ void Tree::importLeafNode(const QJsonObject& json, TreeNode* parent, QMap<int,in
   QString type = json["type"].toString();
   BaseSensor* sensor = SensorFactory::createSensor(name, type);
   int old_id = json["id"].toDouble();
+  bool has_minmax = (json.contains("min") && json["min"].isDouble() && json.contains("max") && json["max"].isDouble());
   TreeNode* node;
   changed_ids->insert(old_id, sensor->getId());
   if(parent == nullptr){
     node = root->appendChild(new LeafNode(sensor));
+    node->parent = nullptr;
   }
   else
-    parent->appendChild(new LeafNode(sensor));
+    node = parent->appendChild(new LeafNode(sensor));
+  if(has_minmax)
+    dynamic_cast<LeafNode*>(node)->sensor->setMinMax(json["min"].toDouble(), json["max"].toDouble());
 }
 
 QJsonObject Tree::exportNode(TreeNode* node, QList<int>* ids) const{
@@ -354,5 +385,7 @@ QJsonObject Tree::exportLeafNode(TreeNode* node, QList<int>* ids) const{
   int id = leaf->sensor->getId();
   ids->append(id);
   json.insert("id", id);
+  json.insert("min", leaf->sensor->getMin());
+  json.insert("max", leaf->sensor->getMax());
   return json;
 };
