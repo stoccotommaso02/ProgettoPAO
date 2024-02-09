@@ -1,6 +1,7 @@
 #ifndef RESULTSWIDGET_H
 #define RESULTSWIDGET_H
 #include<QVBoxLayout>
+#include<QStackedLayout>
 #include<QListView>
 #include<QLabel>
 #include<QPushButton>
@@ -14,9 +15,14 @@ private:
   QListView* list_view;
   QLabel* no_results;
   QPushButton* close_widget;
+  QWidget* empty_list;
+  QWidget* widget_list;
+  QStackedLayout* stack;
+  
 public:
-  ResultsWidget(NodeList* list, QWidget* parent = nullptr);
-  virtual ~ResultsWidget() override;
+  ResultsWidget(QWidget* parent = nullptr);
+  void addList(NodeList* list);
+  void removeList();
 
 public slots:
   void nodeSelected();

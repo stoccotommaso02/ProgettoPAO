@@ -20,22 +20,14 @@ NodesWidget::NodesWidget(Tree* t, QWidget* parent): QWidget(parent), tree(t){
   stack->addWidget(tree_widget);
   vbox->addWidget(stack);
 
-  connect(search_button, QPushButton::clicked, this, NodesWidget::displaySearch);
-  connect(results_widget, ResultsWidget::selectedNode, this, NodesWidget::searchResultSelected);
-  connect(this, NodesWidget::selectTreeNode, tree_widget, TreeWidget::selectNode);
-}
-
-void NodesWidget::displaySearch(){
-  QString query = search_query->text();
-  if(results_widget != nullptr)
-    delete results_widget;
-  results_widget = new ResultsWidget(tree->search(query));
-  stack->addWidget(results_widget);
+  connect(search_button, &QPushButton::clicked, this, &NodesWidget::displaySearch);
+  connect(results_widget, &ResultsWidget::selectedNode, this, &NodesWidget::searchResultSelected);
+  connect(this, &NodesWidget::selectTreeNode, tree_widget, &TreeWidget::selectNode);
 }
 
 void NodesWidget::closeResultsWidget(){
   stack->removeWidget(results_widget);
-  delete results_widget;
+
 }
 
 void NodesWidget::searchResultSelected(TreeNode* node){
