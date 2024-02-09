@@ -1,22 +1,30 @@
 #ifndef RESULTSWIDGET_H
 #define RESULTSWIDGET_H
+#include<QVBoxLayout>
 #include<QListView>
+#include<QLabel>
+#include<QPushButton>
 #include"../Model/Tree/NodeList.h"
 
 
 class ResultsWidget : public QWidget{
+  Q_OBJECT
 private:
-  NodeList* const result_list;
+  NodeList* result_list;
   QListView* list_view;
+  QLabel* no_results;
+  QPushButton* close_widget;
 public:
-  ResultsWidget(NodeList* listt, QWidget* parent);
+  ResultsWidget(NodeList* list, QWidget* parent = nullptr);
   virtual ~ResultsWidget() override;
-
-signals:
-  void selectedNode(TreeNode* node);
 
 public slots:
   void nodeSelected();
+  void closeButtonPressed();
+
+signals:
+  void selectedNode(TreeNode* node);
+  void closePressed();
 };
 
 #endif

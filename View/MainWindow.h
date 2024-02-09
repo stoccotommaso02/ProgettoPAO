@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include<QMainWindow>
-#include"TreeWidget.h"
+#include"NodesWidget.h"
 
 class MainWindow : public QMainWindow{
   Q_OBJECT
@@ -10,7 +10,7 @@ public:
 
 private:
   bool unsaved_changes;
-  TreeWidget* tree_view;
+  NodesWidget* nodes_view;
   Tree* tree_model;
 
 public:

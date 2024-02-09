@@ -33,7 +33,10 @@ HEADERS +=  Model/Sensor/BaseSensor.h \
             View/DTreeView.h \
             View/MainWindow.h \
             View/SensorShow.h \
-            View/TreeWidget.h
+            View/TreeWidget.h \
+            View/ResultsWidget.h \
+            View/NodesWidget.h
+
 
 SOURCES +=  Model/Sensor/BaseSensor.cpp \
             Model/Sensor/SensorFactory.cpp \
@@ -64,4 +67,6 @@ SOURCES +=  Model/Sensor/BaseSensor.cpp \
             View/MainWindow.cpp \
             View/SensorShow.cpp \
             View/TreeWidget.cpp \
+            View/NodesWidget.cpp \
+            View/ResultsWidget.cpp \
             main.cpp

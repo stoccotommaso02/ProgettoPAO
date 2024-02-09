@@ -7,8 +7,8 @@ MainWindow::MainWindow(Tree* t, QWidget* parent): QMainWindow(parent), unsaved_c
   QSplitter* splitter = new QSplitter(this);
   setCentralWidget(splitter);
 
-  tree_view = new TreeWidget(tree_model);
-  splitter->addWidget(tree_view);
+  nodes_view = new NodesWidget(tree_model);
+  splitter->addWidget(nodes_view);
 };
 
 void MainWindow::updateModel(){

@@ -26,7 +26,7 @@ QModelIndex Tree::getIndex(TreeNode* node) const{
 void Tree::populateSearch(TreeNode* node, NodeList* results) const{
   if(node == nullptr)
     return;
-  if(node->name.contains(results->query))
+  if(node->name.contains(results->query, Qt::CaseInsensitive))
     results->appendResult(node);
   if(!node->isLeaf()){
     for(TreeNode* const n : node->children){

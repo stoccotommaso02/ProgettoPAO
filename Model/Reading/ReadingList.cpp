@@ -145,7 +145,7 @@ bool ReadingList::saved() const{
 
 
 FilteredList* ReadingList::filter(int key){
-  QList<Reading*>* ptr;
+  QList<Reading*>* ptr = new QList<Reading*>();
   *ptr = map.values(key);
 
   return new FilteredList(key, ptr);

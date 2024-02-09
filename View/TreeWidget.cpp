@@ -1,12 +1,5 @@
 #include"TreeWidget.h"
-
-/*  Tree* tree_model;
-  QStackedWidget* stack;
-  QPushButton* create_node;
-  QPushButton* create_sensor;
-  QPushButton* remove_node;
-  QTreeView* tree_view;
-  QLineEdit* searchbar;*/
+#include"NodesWidget.h"
 
 TreeWidget::TreeWidget(Tree* t, QWidget* parent): tree_model(t), QWidget(parent){
   QVBoxLayout* vbox = new QVBoxLayout(this);
@@ -73,4 +66,8 @@ void TreeWidget::createSensor(){
 void TreeWidget::removeNode(){
   QModelIndex index = tree_view->selectionModel()->currentIndex();
   tree_model->removeNode(index);
+}
+
+void TreeWidget::selectNode(TreeNode* node){
+  tree_view->selectionModel()->select(tree_model->getIndex(node), QItemSelectionModel::Select);
 }
