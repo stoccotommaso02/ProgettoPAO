@@ -26,11 +26,16 @@ NodesWidget::NodesWidget(Tree* t, QWidget* parent): QWidget(parent), tree(t){
 }
 
 void NodesWidget::closeResultsWidget(){
-  stack->removeWidget(results_widget);
+  stack->setCurrentIndex(0);
 
 }
 
 void NodesWidget::searchResultSelected(TreeNode* node){
   closeResultsWidget();
   emit selectTreeNode(node);
+}
+
+void NodesWidget::displaySearch(){
+  results_widget->addList(tree->search(search_query->text()));
+  stack->setCurrentIndex(1);
 }
