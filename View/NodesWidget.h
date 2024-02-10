@@ -18,7 +18,7 @@ private:
   QLineEdit* search_query;
   QPushButton* search_button;
   ResultsWidget* results_widget;
-  
+
 public:
   NodesWidget(Tree* t, QWidget* parent =nullptr);
 

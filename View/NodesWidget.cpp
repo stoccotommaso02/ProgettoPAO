@@ -17,21 +17,22 @@ NodesWidget::NodesWidget(Tree* t, QWidget* parent): QWidget(parent), tree(t){
   searchbar->addStretch();
   vbox->addLayout(searchbar);
 
-  stack->addWidget(tree_widget);
+  stack->insertWidget(0, tree_widget);
+  stack->insertWidget(1, results_widget);
   vbox->addWidget(stack);
 
   connect(search_button, &QPushButton::clicked, this, &NodesWidget::displaySearch);
   connect(results_widget, &ResultsWidget::selectedNode, this, &NodesWidget::searchResultSelected);
   connect(this, &NodesWidget::selectTreeNode, tree_widget, &TreeWidget::selectNode);
+  connect(results_widget, &ResultsWidget::closePressed, this, &NodesWidget::closeResultsWidget);
 }
 
 void NodesWidget::closeResultsWidget(){
   stack->setCurrentIndex(0);
-
 }
 
 void NodesWidget::searchResultSelected(TreeNode* node){
-  closeResultsWidget();
+  stack->setCurrentIndex(0);
   emit selectTreeNode(node);
 }
 

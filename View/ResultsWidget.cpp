@@ -1,13 +1,16 @@
 #include"ResultsWidget.h"
 
 ResultsWidget::ResultsWidget(QWidget* parent): QWidget(parent){
+  result_list = new NodeList("");
   list_view = new QListView();
-  list_view->setStyleSheet("QListView::item::hover{background-colo:#0000FF};");
+  list_view->setStyleSheet("QListView::item::hover{background-color:#0000FF};");
+  list_view->setModel(result_list);
   no_results = new QLabel("Search yielded no results.");
   no_results->setAlignment(Qt::AlignHCenter);
   close_widget = new QPushButton("Close");
   empty_list = new QWidget();
   widget_list = new QWidget();
+  go_button = new QPushButton("Go");
 
   stack = new QStackedLayout(this);
   QVBoxLayout* vbox_list = new QVBoxLayout(widget_list);
@@ -17,13 +20,14 @@ ResultsWidget::ResultsWidget(QWidget* parent): QWidget(parent){
 
   vbox_empty->addWidget(no_results);
   vbox_empty->addWidget(close_widget);
+  vbox_list->addWidget(go_button);
   vbox_list->addWidget(list_view);
 
   stack->addWidget(empty_list);
   stack->addWidget(widget_list);
 
   //slot connections
-  connect(list_view->selectionModel(), &QItemSelectionModel::currentChanged, this, &ResultsWidget::nodeSelected);
+  connect(go_button, &QPushButton::clicked, this, &ResultsWidget::nodeSelected);
   connect(close_widget, &QPushButton::clicked, this, &ResultsWidget::closeButtonPressed);
 }
 

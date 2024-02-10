@@ -18,6 +18,7 @@ private:
   QWidget* empty_list;
   QWidget* widget_list;
   QStackedLayout* stack;
+  QPushButton* go_button;
   
 public:
   ResultsWidget(QWidget* parent = nullptr);
