@@ -6,7 +6,7 @@ TreeNode* NodeList::getNode(const QModelIndex& index) const{
     if(indexNode)
       return indexNode;
   }
-  return nullptr;
+  
 }
 
 QVariant NodeList::data(const QModelIndex& index, int role) const{

@@ -69,5 +69,8 @@ void TreeWidget::removeNode(){
 }
 
 void TreeWidget::selectNode(TreeNode* node){
-  tree_view->selectionModel()->select(tree_model->getIndex(node), QItemSelectionModel::Select);
+  if(node == nullptr){
+    tree_view->selectionModel()->select(QItemSelection(), QItemSelectionModel::SelectCurrent)
+  }
+  tree_view->selectionModel()->select(tree_model->getIndex(node), QItemSelectionModel::SelectCurrent);
 }

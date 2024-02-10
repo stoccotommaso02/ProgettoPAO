@@ -46,7 +46,8 @@ void ResultsWidget::addList(NodeList* list){
 
 
 void ResultsWidget::nodeSelected(){
-  emit selectedNode(result_list->getNode(list_view->selectionModel()->currentIndex()));
+  QModelIndex selected = list_view->selectionModel()->currentIndex();
+  emit selectedNode(result_list->getNode(selected));
 }
 
 void ResultsWidget::closeButtonPressed(){
