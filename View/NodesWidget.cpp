@@ -5,7 +5,7 @@ NodesWidget::NodesWidget(Tree* t, QWidget* parent): QWidget(parent), tree(t){
   tree_widget = new TreeWidget(tree);
   search_query = new QLineEdit();
   search_button = new QPushButton("Search");
-  results_widget = nullptr;
+  results_widget = new ResultsWidget();
   QVBoxLayout* vbox = new QVBoxLayout(this);
   QHBoxLayout* searchbar = new QHBoxLayout();
   vbox->setAlignment(Qt::AlignTop | Qt::AlignLeft);

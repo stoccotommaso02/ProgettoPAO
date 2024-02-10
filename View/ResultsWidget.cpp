@@ -48,3 +48,7 @@ void ResultsWidget::nodeSelected(){
 void ResultsWidget::closeButtonPressed(){
   emit closePressed();
 }
+
+void ResultsWidget::removeList(){
+  delete result_list;
+}
