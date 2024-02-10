@@ -20,6 +20,9 @@ TreeNode* Tree::getNode(const QModelIndex& index) const{
 }
 
 QModelIndex Tree::getIndex(TreeNode* node) const{
+  if(node == nullptr){
+    return QModelIndex();
+  }
   return index(node->row(), 0, getIndex(node->getParent()));
 }
 

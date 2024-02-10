@@ -3,7 +3,6 @@
 ResultsWidget::ResultsWidget(QWidget* parent): QWidget(parent){
   result_list = new NodeList("");
   list_view = new QListView();
-  list_view->setStyleSheet("QListView::item::hover{background-color:#0000FF};");
   list_view->setModel(result_list);
   no_results = new QLabel("Search yielded no results.");
   no_results->setAlignment(Qt::AlignHCenter);
