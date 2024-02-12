@@ -7,11 +7,10 @@ class Tree;
 
 class TreeNode{
   friend class Tree;
-  friend class JsonTreeParser;
 protected:
+  QString name;
   TreeNode* parent;
   QList<TreeNode*> children;
-  QString name;
   TreeNode(const QString& n, TreeNode* p =nullptr): name(n), parent(p) {};
   virtual ~TreeNode();
   int row() const;

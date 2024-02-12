@@ -24,11 +24,16 @@ private:
 public:
   explicit TreeWidget(Tree* t, QWidget* parent =nullptr);
 
+signals:
+  void leafSelected(BaseSensor* sensor);
+  void leafDeselected();
+
 public slots:
   void createNode();
   void createSensor();
   void removeNode();
   void selectNode(TreeNode* node);
+  void handleSelection(const QModelIndex& current, const QModelIndex& previous);
 };
 
 #endif

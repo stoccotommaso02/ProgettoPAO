@@ -26,6 +26,8 @@ NodesWidget::NodesWidget(Tree* t, QWidget* parent): QWidget(parent), tree(t){
   connect(results_widget, &ResultsWidget::selectedNode, this, &NodesWidget::searchResultSelected);
   connect(this, &NodesWidget::selectTreeNode, tree_widget, &TreeWidget::selectNode);
   connect(results_widget, &ResultsWidget::closePressed, this, &NodesWidget::closeResultsWidget);
+  connect(tree_widget, &TreeWidget::leafSelected, this, &NodesWidget::leafSelect);
+  connect(tree_widget, &TreeWidget::leafDeselected, this, &NodesWidget::leafDeselect);
 }
 
 void NodesWidget::closeResultsWidget(){
@@ -44,4 +46,12 @@ void NodesWidget::displaySearch(){
 
 void NodesWidget::update(){
   QWidget::update();
+}
+
+void NodesWidget::leafSelect(BaseSensor* sensor){
+  emit leafSelected(sensor);
+}
+
+void NodesWidget::leafDeselect(){
+  emit leafDeselected();
 }

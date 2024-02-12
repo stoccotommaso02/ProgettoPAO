@@ -20,10 +20,14 @@ TreeNode* Tree::getNode(const QModelIndex& index) const{
 }
 
 QModelIndex Tree::getIndex(TreeNode* node) const{
-  if(node == nullptr){
+  if(node == nullptr)
     return QModelIndex();
-  }
-  return index(node->row(), 0, getIndex(node->getParent()));
+  int row;
+  if(node->getParent() == nullptr)
+    row = root->children.indexOf(node);
+  else
+    row = node->row();
+  return index(row, 0, getIndex(node->getParent()));
 }
 
 void Tree::populateSearch(TreeNode* node, NodeList* results) const{
@@ -157,10 +161,12 @@ bool Tree::appendNode(const QString& name, const QModelIndex& parent){
   TreeNode* parentNode = getNode(parent);
   if(!parentNode->isLeaf()){
     beginInsertRows(parent, parentNode->childCount(), parentNode->childCount());
-    const bool success = parentNode->appendChild(new TreeNode(name, parentNode));
+    TreeNode* child = parentNode->appendChild(new TreeNode(name, parentNode));
+    if(parentNode == root)
+      child->parent = nullptr;
     endInsertRows();
     notify();
-    return success;
+    return child;
   }
   return false;
 }
@@ -171,11 +177,12 @@ bool Tree::appendSensor(BaseSensor* sensor, const QModelIndex& parent){
     beginInsertRows(parent, parentNode->childCount(), parentNode->childCount());
     LeafNode* leaf = new LeafNode(sensor, parentNode);
     leaf->attach(this);
-    const bool success = parentNode->appendChild(leaf);
-
+    TreeNode* child = parentNode->appendChild(leaf);
+    if(parentNode == root)
+      child->parent = nullptr;
     endInsertRows();
     notify();
-    return success;
+    return child;
   }
   return false;
 }

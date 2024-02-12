@@ -2,10 +2,12 @@
 
 TreeNode* NodeList::getNode(const QModelIndex& index) const{
   if(index.isValid()){
-    TreeNode* indexNode = results.at(index.row());
+    return results.at(index.row());
   }
   return nullptr;
 }
+
+NodeList::~NodeList(){};
 
 QVariant NodeList::data(const QModelIndex& index, int role) const{
   if(!index.isValid() || role != Qt::DisplayRole)

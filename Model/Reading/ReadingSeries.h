@@ -1,4 +1,4 @@
-#ifndef READINGSERIS_H
+#ifndef READINGSERIES_H
 #define READINGSERIES_H
 #include<QLineSeries>
 #include"../Observer.h"
@@ -8,9 +8,9 @@ class Reading;
 
 class ReadingSeries : public QLineSeries, public Observer, public Subject{
 private:
- Reading* const reading;
+ Reading* reading;
 public:
-  ReadingSeries(Reading* const r);
+  ReadingSeries(Reading* r);
   virtual ~ReadingSeries();
   virtual void update() override;
 };

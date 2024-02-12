@@ -12,6 +12,7 @@ QString BaseSensor::getName() const{
 
 void BaseSensor::setName(const QString& s){
   name = s;
+  notify();
 }
 
 int BaseSensor::getId() const{

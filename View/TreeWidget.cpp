@@ -28,6 +28,7 @@ TreeWidget::TreeWidget(Tree* t, QWidget* parent): tree_model(t), QWidget(parent)
   connect(create_node, &QPushButton::clicked, this, &TreeWidget::createNode);
   connect(create_sensor, &QPushButton::clicked, this, &TreeWidget::createSensor);
   connect(remove_node, &QPushButton::clicked, this, &TreeWidget::removeNode);
+  connect(tree_view->selectionModel(), &QItemSelectionModel::currentChanged, this, &TreeWidget::handleSelection);
 }
 
 void TreeWidget::createNode(){
@@ -50,8 +51,7 @@ void TreeWidget::createSensor(){
   QModelIndex parent = tree_view->selectionModel()->currentIndex();
 
     if(tree_model->leaf(parent)){
-      QMessageBox::StandardButton warn;
-      warn = QMessageBox::warning(this, "Invalid operation", "Cannot add a child to a sensor node", QMessageBox::Ok);
+      QMessageBox::StandardButton warn = QMessageBox::warning(this, "Invalid operation", "Cannot add a child to a sensor node", QMessageBox::Ok);
       return;
   }
 
@@ -73,4 +73,13 @@ void TreeWidget::selectNode(TreeNode* node){
     tree_view->selectionModel()->select(QItemSelection(), QItemSelectionModel::Select);
   }
   tree_view->selectionModel()->select(tree_model->getIndex(node), QItemSelectionModel::Select);
+}
+
+void TreeWidget::handleSelection(const QModelIndex& current, const QModelIndex& previous){
+  Q_UNUSED(previous);
+  if(current != QModelIndex() && tree_model->leaf(current)){
+    emit leafSelected(tree_model->getSensor(current));
+  }
+  else
+    emit leafDeselected();
 }

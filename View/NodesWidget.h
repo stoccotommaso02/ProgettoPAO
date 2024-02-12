@@ -26,12 +26,16 @@ public:
   void refresh();
 
 signals:
-void selectTreeNode(TreeNode* node);
+  void selectTreeNode(TreeNode* node);
+  void leafSelected(BaseSensor* sensor);
+  void leafDeselected();
 
 public slots:
   void displaySearch();
   void closeResultsWidget();
   void searchResultSelected(TreeNode* node);
+  void leafSelect(BaseSensor* sensor);
+  void leafDeselect();
 };
 
 #endif

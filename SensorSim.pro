@@ -1,4 +1,4 @@
-QT += core widgets
+QT += core widgets charts
 CONFIG += debug
 
 TARGET = SensorSim
@@ -24,6 +24,7 @@ HEADERS +=  Model/Sensor/BaseSensor.h \
             Model/Reading/ReadingTable.h \
             Model/Reading/ReadingList.h \
             Model/Reading/FilteredList.h \
+            Model/Reading/ReadingSeries.h \
             Model/Tree/TreeNode.h \
             Model/Tree/LeafNode.h \
             Model/Tree/Tree.h \
@@ -59,6 +60,7 @@ SOURCES +=  Model/Sensor/BaseSensor.cpp \
             Model/Reading/ReadingTable.cpp \
             Model/Reading/ReadingList.cpp \
             Model/Reading/FilteredList.cpp \
+            Model/Reading/ReadingSeries.cpp \
             Model/Tree/TreeNode.cpp \
             Model/Tree/LeafNode.cpp \
             Model/Tree/Tree.cpp \

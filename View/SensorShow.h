@@ -5,6 +5,7 @@
 #include<QPushButton>
 #include<QDoubleSpinBox>
 #include<QHBoxLayout>
+#include<QInputDialog>
 #include"../Model/Observer.h"
 #include"Model/Sensor/BaseSensor.h"
 #include"Model/Sensor/TypeSensorVisitor.h"
@@ -18,13 +19,25 @@ private:
 	QLabel* sensor_type;
 	QLabel* type_image;
 	QLabel* range_id;
+	QPushButton* change_name_button;
 	QPushButton* simulate;
 	QDoubleSpinBox* min_range;
 	QDoubleSpinBox* max_range;
 public:
-	SensorShow(BaseSensor* s, QWidget* parent);
+	SensorShow(QWidget* parent = nullptr);
 	void refresh();
 	virtual void update() override;
+
+signals:
+	void simulated(int id, Reading* reading);
+
+public slots:
+	void changeName();
+	void startSimulation();
+	void setMin();
+	void setMax();
+	void addSensor(BaseSensor* s);
+	void removeSensor();
 };
 
 #endif

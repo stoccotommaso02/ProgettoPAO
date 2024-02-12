@@ -1,7 +1,7 @@
 #include"ReadingSeries.h"
 #include"Reading.h"
 
-ReadingSeries::ReadingSeries(Reading* const r): reading(r){
+ReadingSeries::ReadingSeries(Reading* r): reading(r){
   reading->attach(this);
 }
 

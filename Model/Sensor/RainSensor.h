@@ -6,8 +6,8 @@ class RainSensor: public BaseSensor{
 private:
   static const unsigned int absolute_max;
   static const unsigned int absolute_min;
-  unsigned int max;
   unsigned int min;
+  unsigned int max;
 public:
   RainSensor(const QString& n): BaseSensor(n), min(0), max(10) {};
   RainSensor(const QString& n, int i): BaseSensor(n,i), min(0), max(10) {};
