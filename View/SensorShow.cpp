@@ -1,6 +1,7 @@
 #include "SensorShow.h"
 
 SensorShow::SensorShow(BaseSensor* s, QWidget* parent):QWidget(parent), sensor(s){
+	sensor
   QHBoxLayout* box= new QHBoxLayout(this);
 	QVBoxLayout* b1= new QVBoxLayout();
 	QVBoxLayout* b2= new QVBoxLayout();
@@ -41,3 +42,8 @@ void SensorShow::refresh(){
 	min_range->value();
 	max_range->value();
 };
+
+void SensorShow::update(){
+	refresh();
+	QWidget::update();
+}

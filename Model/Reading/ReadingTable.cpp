@@ -1,6 +1,10 @@
 #include"ReadingTable.h"
 
-ReadingTable::~ReadingTable(){};
+ReadingTable::~ReadingTable(){
+  for(Reading* r : table){
+    r->detach(this);
+  }
+};
 
 Reading* ReadingTable::getReading(const QModelIndex& index) const{
   if(!index.isValid())
@@ -44,6 +48,7 @@ QVariant ReadingTable::headerData(int section, Qt::Orientation orientation, int 
 void ReadingTable::append(Reading* reading){
   if(table.contains(reading) || reading == nullptr)
     return;
+  reading->attach(this);
   beginInsertRows(QModelIndex(), rowCount(), rowCount());
   int size = reading->getSize();
   if(size > max_entries){
@@ -61,8 +66,13 @@ void ReadingTable::remove(Reading* reading){
   beginRemoveRows(QModelIndex(), table.indexOf(reading), table.indexOf(reading));
   table.removeAll(reading);
   endRemoveRows();
+  reading->detach(this);
 }
 
 void ReadingTable::remove(const QModelIndex& index){
   remove(getReading(index));
+}
+
+void ReadingTable::update(){
+  notify();
 }

@@ -5,10 +5,11 @@
 #include<QPushButton>
 #include<QDoubleSpinBox>
 #include<QHBoxLayout>
+#include"../Model/Observer.h"
 #include"Model/Sensor/BaseSensor.h"
 #include"Model/Sensor/TypeSensorVisitor.h"
 
-class SensorShow: public QWidget {
+class SensorShow: public QWidget, public Observer {
   Q_OBJECT
 private:
 	BaseSensor* sensor;
@@ -23,6 +24,7 @@ private:
 public:
 	SensorShow(BaseSensor* s, QWidget* parent);
 	void refresh();
+	virtual void update() override;
 };
 
 #endif

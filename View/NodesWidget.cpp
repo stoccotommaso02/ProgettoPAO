@@ -1,6 +1,7 @@
 #include"NodesWidget.h"
 
 NodesWidget::NodesWidget(Tree* t, QWidget* parent): QWidget(parent), tree(t){
+  tree->attach(this);
   stack = new QStackedWidget();
   tree_widget = new TreeWidget(tree);
   search_query = new QLineEdit();
@@ -39,4 +40,8 @@ void NodesWidget::searchResultSelected(TreeNode* node){
 void NodesWidget::displaySearch(){
   results_widget->addList(tree->search(search_query->text()));
   stack->setCurrentIndex(1);
+}
+
+void NodesWidget::update(){
+  QWidget::update();
 }

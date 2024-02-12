@@ -3,9 +3,11 @@
 #include<QVariant>
 #include<QList>
 #include<QAbstractTableModel>
+#include"../Observer.h"
+#include"../Subject.h"
 #include"Reading.h"
 
-class ReadingTable : public QAbstractTableModel{
+class ReadingTable : public QAbstractTableModel, public Observer, public Subject{
 private:
   ReadingTable(): max_entries(0){};
   QList<Reading*> table;
@@ -21,6 +23,7 @@ public:
   void append(Reading* reading);
   void remove(Reading* reading);
   void remove(const QModelIndex& index);
+  virtual void update() override;
 };
 
 #endif

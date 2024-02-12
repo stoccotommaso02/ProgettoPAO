@@ -1,6 +1,10 @@
 #include"LeafNode.h"
 #include"../Sensor/TypeSensorVisitor.h"
 
+LeafNode::LeafNode(BaseSensor* s, TreeNode* p): TreeNode(s->getName(), p), sensor(s){
+  s->attach(this);
+};
+
 LeafNode::~LeafNode(){
   delete sensor;
 }
@@ -36,4 +40,9 @@ bool LeafNode::setName(const QString& n){
   sensor->setName(n);
   name = n;
   return true;
+}
+
+void LeafNode::update(){
+  name = sensor->getName();
+  notify();
 }

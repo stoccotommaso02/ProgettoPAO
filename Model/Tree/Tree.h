@@ -6,12 +6,14 @@
 #include<QMap>
 #include<QJsonObject>
 #include<QJsonArray>
+#include"../Observer.h"
+#include"../Subject.h"
 #include"TreeNode.h"
 #include"LeafNode.h"
 #include"NodeList.h"
 #include"../Sensor/BaseSensor.h"
 
-class Tree : public QAbstractItemModel{
+class Tree : public QAbstractItemModel, public Observer, public Subject{
   Q_OBJECT
   
 private:
@@ -59,6 +61,7 @@ public:
   QJsonObject toJson() const;
   void importSection(const QJsonObject& json, TreeNode* parent, QMap<int, int>* changed_ids);
   QJsonObject exportSection(TreeNode* head, QList<int>* ids) const;
+  virtual void update() override;
 };
 
 #endif

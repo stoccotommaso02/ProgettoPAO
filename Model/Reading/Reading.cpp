@@ -21,3 +21,12 @@ const QVariant Reading::getValue(int index) const{
     return QVariant();
   return reading->at(index);
 }
+
+ReadingSeries* Reading::toSeries() const{
+  ReadingSeries* series = new ReadingSeries(const_cast<Reading*>(this));
+  series->setName(name);
+  for(int i=0; i < reading->count(); i++){
+    series->append(i, reading->operator[](i));
+  }
+  return series;
+}

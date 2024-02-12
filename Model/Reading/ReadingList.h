@@ -4,24 +4,20 @@
 #include<QAbstractTableModel>
 #include<QJsonObject>
 #include<QJsonArray>
+#include"../Observer.h"
+#include"../Subject.h"
 #include"Reading.h"
 #include"ReadingFactory.h"
 
-class JsonReadingParser;
-class FilteredList;
-
-class ReadingList : public QAbstractTableModel{
+class ReadingList : public QAbstractTableModel, public Observer, public Subject{
   Q_OBJECT
-  friend class JsonReadingParser;
 private:
   static ReadingList* instance;
   QMultiMap<int, Reading*> map;
-  ReadingList(): saved_progress(true){};
-  bool saved_progress;
+  ReadingList(){};
 
   int getKey(const QModelIndex& index) const;
   Reading* getValue(const QModelIndex& index) const;
-
   QJsonObject entryToJson(int key, Reading* value) const;
   void jsonToEntry(const QJsonObject& json);
   void importEntry(const QJsonObject& json, QMap<int, int>* changed_ids);
@@ -37,13 +33,15 @@ public:
   void insert(int key, Reading* reading);
   void remove(int key);
   void remove(Reading* reading);
+  void remove(const QModelIndex& index);
   void resetList();
-  FilteredList* filter(int key);
+  QModelIndex find(int id, Reading* reading) const;
+  Reading* reading(const QModelIndex& index) const;
   QJsonObject toJson();
   void fromJson(const QJsonObject& json);
   QJsonObject exportReadings(QList<int>* ids) const;
   void importReadings(const QJsonObject& json, QMap<int,int>* changed_ids);
-  bool saved() const;
+  virtual void update() override;
 };
 
 #endif

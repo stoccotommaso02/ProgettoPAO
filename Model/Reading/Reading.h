@@ -3,10 +3,13 @@
 #include<QList>
 #include<QString>
 #include<QVariant>
+#include<QLineSeries>
+#include"../Subject.h"
+#include"ReadingSeries.h"
 
 class ReadingVisitor;
 
-class Reading{
+class Reading : public Subject{
 private:
   QString name;
   const QList<double>* reading;
@@ -18,6 +21,7 @@ public:
   int getSize() const;
   const QVariant getValue(int index) const;
   virtual void accept(ReadingVisitor& v) =0;
+  ReadingSeries* toSeries() const;
 };
 
 #endif

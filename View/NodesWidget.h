@@ -5,11 +5,12 @@
 #include<QHBoxLayout>
 #include<QLineEdit>
 #include<QPushButton>
+#include"../Model/Observer.h"
 #include"TreeWidget.h"
 #include"ResultsWidget.h"
 #include"../Model/Tree/NodeList.h"
 
-class NodesWidget : public QWidget{
+class NodesWidget : public QWidget, public Observer{
   Q_OBJECT
 private:
   Tree* tree;
@@ -21,6 +22,8 @@ private:
 
 public:
   NodesWidget(Tree* t, QWidget* parent =nullptr);
+  virtual void update() override;
+  void refresh();
 
 signals:
 void selectTreeNode(TreeNode* node);

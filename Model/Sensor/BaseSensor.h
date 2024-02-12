@@ -1,10 +1,11 @@
 #ifndef B_SENSOR_H
 #define B_SENSOR_H
 #include<QString>
+#include"../Subject.h"
 #include"SensorVisitor.h"
 #include"../Reading/Reading.h"
 
-class BaseSensor{
+class BaseSensor : public Subject{
 private:
   static int counter;
   QString name;

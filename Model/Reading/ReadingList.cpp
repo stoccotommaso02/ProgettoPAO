@@ -100,14 +100,16 @@ bool ReadingList::setData(const QModelIndex& index, const QVariant& value, int r
   getValue(index)->setName(value.toString());
   emit dataChanged(index, index);
   return true;
+  notify();
 }
 
 void ReadingList::insert(int k, Reading* r){
+  r->attach(this);
   int position = std::distance(map.begin(), map.contains(k)? map.upperBound(k) : map.lowerBound(k));
   beginInsertRows(QModelIndex(), position, position);
   map.insert(k, r);
   endInsertRows();
-  saved_progress = false;
+  notify();
 }
 
 void ReadingList::remove(int k){
@@ -119,7 +121,7 @@ void ReadingList::remove(int k){
     delete it;
   map.remove(k);
   endRemoveRows();
-  saved_progress = false;
+  notify();
 }
 
 void ReadingList::remove(Reading* r){
@@ -129,7 +131,11 @@ void ReadingList::remove(Reading* r){
   delete r;
   map.erase(it);
   endRemoveRows();
-  saved_progress = false;
+  notify();
+}
+
+void ReadingList::remove(const QModelIndex& index){
+  remove(getValue(index));
 }
 
 void ReadingList::resetList(){
@@ -137,19 +143,23 @@ void ReadingList::resetList(){
   for(int k : map.keys())
     remove(k);
   endResetModel();
+  notify();
 }
 
-bool ReadingList::saved() const{
-  return saved_progress;
+QModelIndex ReadingList::find(int key, Reading* value) const{
+  int pos = -1;
+  if(map.contains(key, value)){
+    pos = std::distance(map.begin(), map.find(key, value));
+  }
+  return (pos >= 0)? index(pos, 0, QModelIndex()) : QModelIndex();
 }
 
-
-FilteredList* ReadingList::filter(int key){
-  QList<Reading*>* ptr = new QList<Reading*>();
-  *ptr = map.values(key);
-
-  return new FilteredList(key, ptr);
+Reading* ReadingList::reading(const QModelIndex& index) const{
+  if(index.isValid())
+    return getValue(index);
+  return nullptr;
 }
+
 QJsonObject ReadingList::entryToJson(int key, Reading* value) const{
   QJsonObject json;
   QJsonArray values_array;
@@ -241,4 +251,8 @@ void ReadingList::importEntry(const QJsonObject& json, QMap<int, int>* changed_i
     }
     map.insert(id, ReadingFactory::createReading(name, values, type));
   }
+}
+
+void ReadingList::update(){
+  notify();
 }
