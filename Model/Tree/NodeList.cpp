@@ -2,11 +2,9 @@
 
 TreeNode* NodeList::getNode(const QModelIndex& index) const{
   if(index.isValid()){
-    TreeNode* indexNode = static_cast<TreeNode*>(index.internalPointer());
-    if(indexNode)
-      return indexNode;
+    TreeNode* indexNode = results.at(index.row());
   }
-  
+  return nullptr;
 }
 
 QVariant NodeList::data(const QModelIndex& index, int role) const{
