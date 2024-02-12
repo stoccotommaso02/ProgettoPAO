@@ -1,21 +1,23 @@
 #include"MainWindow.h"
 #include<QApplication>
-#include<QMessageBox>
 #include<QSplitter>
+#include<QVBoxLayout>
 
-MainWindow::MainWindow(Tree* t, QWidget* parent): QMainWindow(parent), tree_model(t){
+MainWindow::MainWindow(Environment* e, QWidget* parent): QMainWindow(parent), environment(e){
   QSplitter* splitter = new QSplitter(this);
   setCentralWidget(splitter);
-
-  nodes_view = new NodesWidget(tree_model);
+  QSplitter* leftsplit = new QSplitter();
+  leftsplit->setOrientation(Qt::Vertical);
+  nodes_view = new NodesWidget(environment->tree());
+  readinglist_widget = new ReadingListWidget(environment->readinglist());
   sensor_show = new SensorShow();
-  splitter->addWidget(nodes_view);
+
+  leftsplit->addWidget(nodes_view);
+  leftsplit->addWidget(readinglist_widget);
+  splitter->addWidget(leftsplit);
   splitter->addWidget(sensor_show);
 
   connect(nodes_view, &NodesWidget::leafSelected, sensor_show, &SensorShow::addSensor);
   connect(nodes_view, &NodesWidget::leafDeselected, sensor_show, &SensorShow::removeSensor);
+  connect(sensor_show, &SensorShow::simulated, readinglist_widget, &ReadingListWidget::addReading);
 };
-
-void MainWindow::updateModel(){
-
-}
