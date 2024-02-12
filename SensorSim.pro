@@ -30,6 +30,8 @@ HEADERS +=  Model/Sensor/BaseSensor.h \
             Model/Tree/NodeList.h \
             Model/Environment.h \
             Model/TypeRegistrar.h \
+            Model/Observer.h \
+            Model/Subject.h \
             View/DTreeView.h \
             View/MainWindow.h \
             View/SensorShow.h \
@@ -63,6 +65,7 @@ SOURCES +=  Model/Sensor/BaseSensor.cpp \
             Model/Tree/NodeList.cpp \
             Model/Environment.cpp \
             Model/TypeRegistrar.cpp \
+            Model/Subject.cpp \
             View/DTreeView.cpp \
             View/MainWindow.cpp \
             View/SensorShow.cpp \
