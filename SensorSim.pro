@@ -36,6 +36,7 @@ HEADERS +=  Model/Sensor/BaseSensor.h \
             View/DTreeView.h \
             View/MainWindow.h \
             View/SensorShow.h \
+            View/IconVisitor.h \
             View/TreeWidget.h \
             View/ResultsWidget.h \
             View/NodesWidget.h
@@ -71,7 +72,11 @@ SOURCES +=  Model/Sensor/BaseSensor.cpp \
             View/DTreeView.cpp \
             View/MainWindow.cpp \
             View/SensorShow.cpp \
+            View/IconVisitor.cpp \
             View/TreeWidget.cpp \
             View/NodesWidget.cpp \
             View/ResultsWidget.cpp \
             main.cpp
+
+RESOURCES += \
+              src.qrc

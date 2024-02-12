@@ -16,13 +16,6 @@ private:
 
 public:
   void updateModel();
-
-signals:
-  void sensorSelected(BaseSensor* sensor);
-  void sensorDeselected();
-
-public slots:
-  void close();
 };
 
 #endif

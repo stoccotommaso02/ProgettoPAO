@@ -1,4 +1,5 @@
 #include "SensorShow.h"
+#include"IconVisitor.h"
 
 SensorShow::SensorShow(QWidget* parent): QWidget(parent), sensor(nullptr){
   QHBoxLayout* hbox= new QHBoxLayout(this);
@@ -45,6 +46,9 @@ SensorShow::SensorShow(QWidget* parent): QWidget(parent), sensor(nullptr){
 };
 
 void SensorShow::refresh(){
+	IconVisitor i;
+	sensor->accept(i);
+	type_image->setPixmap(i.getIcon());
 	sensor_name->setText("Name:  " + sensor->getName());
 	sensor_id->setText( "Id:  " + QString::number(sensor->getId()));
 	TypeSensorVisitor v;
