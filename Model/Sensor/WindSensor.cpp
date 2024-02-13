@@ -56,3 +56,11 @@ double WindSensor::getMin() const{
 double WindSensor::getMax() const{
   return max;
 }
+
+double WindSensor::getAbsMin() const {
+  return absolute_min;
+}
+
+double WindSensor::getAbsMax() const {
+  return absolute_max;
+}

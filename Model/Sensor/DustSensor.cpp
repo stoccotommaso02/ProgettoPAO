@@ -67,3 +67,11 @@ double DustSensor::getMin() const{
 double DustSensor::getMax() const{
   return max;
 }
+
+double DustSensor::getAbsMin() const {
+  return absolute_min;
+}
+
+double DustSensor::getAbsMax() const {
+  return absolute_max;
+}

@@ -25,6 +25,8 @@ public:
   virtual bool setMin(double) =0;
   virtual bool setMax(double) =0;
   virtual bool setMinMax(double low, double high) =0;
+  virtual double getAbsMin() const=0;
+  virtual double getAbsMax() const=0;
   virtual double getMin() const =0;
   virtual double getMax() const =0;
 };

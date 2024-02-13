@@ -66,3 +66,11 @@ double RainSensor::getMin() const{
 double RainSensor::getMax() const{
   return max;
 }
+
+double RainSensor::getAbsMin() const {
+  return absolute_min;
+}
+
+double RainSensor::getAbsMax() const {
+  return absolute_max;
+}

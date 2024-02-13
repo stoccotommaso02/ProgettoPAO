@@ -56,3 +56,11 @@ double TemperatureSensor::getMin() const{
 double TemperatureSensor::getMax() const{
   return max;
 }
+
+double TemperatureSensor::getAbsMin() const {
+  return absolute_min;
+}
+
+double TemperatureSensor::getAbsMax() const {
+  return absolute_max;
+}

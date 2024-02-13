@@ -19,6 +19,8 @@ public:
   virtual bool setMinMax(double low,  double high) override;
   virtual double getMin() const override;
   virtual double getMax() const override;
+  virtual double getAbsMin() const override;
+  virtual double getAbsMax() const override;
 };
 
 #endif

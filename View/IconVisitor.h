@@ -1,6 +1,7 @@
 #ifndef ICONVISITOR_H
 #define ICONVISITOR_H
 #include<QPixmap>
+#include<QSizePolicy>
 #include"Model/Sensor/SensorVisitor.h"
 #include"Model/Reading/ReadingVisitor.h"
 

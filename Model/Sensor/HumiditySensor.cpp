@@ -66,3 +66,11 @@ double HumiditySensor::getMin() const{
 double HumiditySensor::getMax() const{
   return max;
 }
+
+double HumiditySensor::getAbsMin() const {
+  return absolute_min;
+}
+
+double HumiditySensor::getAbsMax() const {
+  return absolute_max;
+}
