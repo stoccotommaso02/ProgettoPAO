@@ -20,7 +20,6 @@ private:
   static Tree* instance;
   explicit Tree(): root(new TreeNode("root")){};
   TreeNode* root;
-  TreeNode* getNode(const QModelIndex& index) const;
   void populateSearch(TreeNode* node, NodeList* results) const;
 
   void jsonToNode(const QJsonObject& json, TreeNode* parent);
@@ -38,6 +37,7 @@ private:
 public:
   ~Tree();
   static Tree* tree();
+  TreeNode* getNode(const QModelIndex& index) const;
   QModelIndex index(int row, int column, const QModelIndex& parent =QModelIndex()) const override;
   QModelIndex parent(const QModelIndex& index) const override;
   bool leaf(const QModelIndex& index) const;

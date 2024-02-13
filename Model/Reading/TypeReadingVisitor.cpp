@@ -1,22 +1,27 @@
 #include"TypeReadingVisitor.h"
 
-void TypeReadingVisitor::visit(const TemperatureReading& sensor){
+void TypeReadingVisitor::visit(TemperatureReading& r){
+  Q_UNUSED(r);
   type_name = "Temperature";
 }
 
-void TypeReadingVisitor::visit(const WindReading& sensor){
+void TypeReadingVisitor::visit(WindReading& r){
+  Q_UNUSED(r);
   type_name = "Wind";
 }
 
-void TypeReadingVisitor::visit(const DustReading& sensor){
+void TypeReadingVisitor::visit(DustReading& r){
+  Q_UNUSED(r);
   type_name = "Dust";
 }
 
-void TypeReadingVisitor::visit(const HumidityReading& sensor){
+void TypeReadingVisitor::visit(HumidityReading& r){
+  Q_UNUSED(r);
   type_name = "Humidity";
 }
 
-void TypeReadingVisitor::visit(const RainReading& sensor){
+void TypeReadingVisitor::visit(RainReading& r){
+  Q_UNUSED(r);
   type_name = "Rain";
 }
 

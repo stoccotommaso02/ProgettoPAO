@@ -10,11 +10,11 @@ class WindReading;
 class ReadingVisitor{
 public:
   virtual ~ReadingVisitor(){};
-  virtual void visit(const DustReading&) =0;
-  virtual void visit(const RainReading&) =0;
-  virtual void visit(const TemperatureReading&) =0;
-  virtual void visit(const WindReading&) =0;
-  virtual void visit(const HumidityReading&) =0;
+  virtual void visit(DustReading&) =0;
+  virtual void visit(RainReading&) =0;
+  virtual void visit(TemperatureReading&) =0;
+  virtual void visit(WindReading&) =0;
+  virtual void visit(HumidityReading&) =0;
 };
 
 #endif

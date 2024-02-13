@@ -14,11 +14,11 @@ public:
   virtual void visit(const TemperatureSensor&) override;
   virtual void visit(const WindSensor&) override;
   virtual void visit(const HumiditySensor&) override;
-  virtual void visit(const DustReading&) override;
-  virtual void visit(const RainReading&) override;
-  virtual void visit(const TemperatureReading&) override;
-  virtual void visit(const WindReading&) override;
-  virtual void visit(const HumidityReading&) override;
+  virtual void visit(DustReading&) override;
+  virtual void visit(RainReading&) override;
+  virtual void visit(TemperatureReading&) override;
+  virtual void visit(WindReading&) override;
+  virtual void visit(HumidityReading&) override;
 };
 
 #endif

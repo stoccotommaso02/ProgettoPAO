@@ -23,7 +23,7 @@ signals:
   void displayReading(Reading* reading);
 
 public slots:
-  void addReading(int id, Reading* reading);
+  void findReading(int id, Reading* reading);
   void deleteReadingClicked();
   void addClicked();
   virtual void update() override;

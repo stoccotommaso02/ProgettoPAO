@@ -23,7 +23,7 @@ private:
 
 public:
   explicit TreeWidget(Tree* t, QWidget* parent =nullptr);
-
+  TreeNode* selected() const;
 signals:
   void leafSelected(BaseSensor* sensor);
   void leafDeselected();

@@ -12,8 +12,10 @@ ReadingListWidget::ReadingListWidget(ReadingList* rl, QWidget* parent): QWidget(
   buttonbox->setAlignment(Qt::AlignTop | Qt::AlignLeft);
   buttonbox->addWidget(add_to_display);
   buttonbox->addWidget(delete_reading);
+  buttonbox->addStretch();
   vbox->addLayout(buttonbox);
   vbox->addWidget(table_view);
+  vbox->addStretch();
 
   connect(delete_reading, &QPushButton::clicked, this, &ReadingListWidget::deleteReadingClicked);
   connect(add_to_display, &QPushButton::clicked, this, &ReadingListWidget::addClicked);
@@ -28,14 +30,14 @@ void ReadingListWidget::deleteReadingClicked(){
   readinglist->remove(index);
 }
 
-void ReadingListWidget::addReading(int id, Reading* reading){
-  readinglist->insert(id, reading);
-  table_view->selectionModel()->select(readinglist->find(id, reading), QItemSelectionModel::Select);
+void ReadingListWidget::findReading(int id, Reading* reading){
+  table_view->selectionModel()->select(readinglist->find(id, reading), QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Current);
 }
 
 void ReadingListWidget::addClicked(){
   QModelIndex index = table_view->selectionModel()->currentIndex();
   if(index.isValid()){
+    readinglist->addToTable(index);
     emit displayReading(readinglist->reading(index));
   }
 }

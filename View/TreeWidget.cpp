@@ -70,9 +70,9 @@ void TreeWidget::removeNode(){
 
 void TreeWidget::selectNode(TreeNode* node){
   if(node == nullptr){
-    tree_view->selectionModel()->select(QItemSelection(), QItemSelectionModel::Select);
+    tree_view->selectionModel()->select(QItemSelection(), QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Current);
   }
-  tree_view->selectionModel()->select(tree_model->getIndex(node), QItemSelectionModel::Select);
+  tree_view->selectionModel()->select(tree_model->getIndex(node), QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Current);
 }
 
 void TreeWidget::handleSelection(const QModelIndex& current, const QModelIndex& previous){
@@ -82,4 +82,9 @@ void TreeWidget::handleSelection(const QModelIndex& current, const QModelIndex& 
   }
   else
     emit leafDeselected();
+}
+
+TreeNode* TreeWidget::selected() const{
+  QModelIndex index = tree_view->selectionModel()->currentIndex();
+  return tree_model->getNode(index);
 }
