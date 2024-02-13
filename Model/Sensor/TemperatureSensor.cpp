@@ -1,6 +1,7 @@
 #include<random>
 #include"TemperatureSensor.h"
 #include"../Reading/TemperatureReading.h"
+#include"../Reading/ReadingList.h"
 
 const double TemperatureSensor::absolute_min = -15;
 const double TemperatureSensor::absolute_max = 55;
@@ -21,7 +22,9 @@ Reading* TemperatureSensor::simulate(const QString& name, int numEntries) const{
   for(int i=0; i < numEntries; i++){
     result->append(dis(gen));
   }
-  return new TemperatureReading(name, result);
+  Reading* reading = new TemperatureReading(name, result);
+  ReadingList::readinglist()->insert(getId(), reading);
+  return reading;
 }
 
 bool TemperatureSensor::setMax(double d){
@@ -57,10 +60,10 @@ double TemperatureSensor::getMax() const{
   return max;
 }
 
-double TemperatureSensor::getAbsMin() const {
-  return absolute_min;
+double TemperatureSensor::getAbsoluteMax() const{
+  return absolute_max;
 }
 
-double TemperatureSensor::getAbsMax() const {
-  return absolute_max;
+double TemperatureSensor::getAbsoluteMin() const{
+  return absolute_min;
 }

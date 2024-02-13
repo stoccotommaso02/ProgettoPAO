@@ -1,6 +1,7 @@
 #include<random>
 #include"DustSensor.h"
 #include"../Reading/DustReading.h"
+#include"../Reading/ReadingList.h"
 
 const unsigned int DustSensor::absolute_max = 120;
 
@@ -22,7 +23,9 @@ Reading* DustSensor::simulate(const QString& name, int numEntries) const{
   for(int i=0; i < numEntries; i++){
     result->append(dis(gen));
   }
-  return new DustReading(name, result);
+  Reading* reading = new DustReading(name, result);
+  ReadingList::readinglist()->insert(getId(), reading);
+  return reading;
 }
 
 bool DustSensor::setMin(double d){
@@ -68,10 +71,10 @@ double DustSensor::getMax() const{
   return max;
 }
 
-double DustSensor::getAbsMin() const {
-  return absolute_min;
+double DustSensor::getAbsoluteMax() const{
+  return absolute_max;
 }
 
-double DustSensor::getAbsMax() const {
-  return absolute_max;
+double DustSensor::getAbsoluteMin() const{
+  return absolute_min;
 }

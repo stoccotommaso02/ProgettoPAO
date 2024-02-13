@@ -1,4 +1,4 @@
-#ifndef READINGTABLE_h
+#ifndef READINGTABLE_H
 #define READINGTABLE_H
 #include<QVariant>
 #include<QList>
@@ -9,12 +9,11 @@
 
 class ReadingTable : public QAbstractTableModel, public Observer, public Subject{
 private:
-  ReadingTable(): max_entries(0){};
   QList<Reading*> table;
   int max_entries;
   Reading* getReading(const QModelIndex& index) const;
 public:
-  static ReadingTable* addTable();
+  ReadingTable(): max_entries(0){};
   virtual ~ReadingTable();
   virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
   virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
@@ -23,6 +22,8 @@ public:
   void append(Reading* reading);
   void remove(Reading* reading);
   void remove(const QModelIndex& index);
+  bool contains(Reading*) const;
+  int row(Reading*) const;
   virtual void update() override;
 };
 

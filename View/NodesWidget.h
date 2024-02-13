@@ -24,6 +24,7 @@ public:
   NodesWidget(Tree* t, QWidget* parent =nullptr);
   virtual void update() override;
   void refresh();
+  TreeNode* selected() const;
 
 signals:
   void selectTreeNode(TreeNode* node);

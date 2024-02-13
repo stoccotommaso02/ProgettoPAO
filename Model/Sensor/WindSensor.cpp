@@ -1,6 +1,8 @@
 #include<random>
 #include"WindSensor.h"
 #include"../Reading/WindReading.h"
+#include"../Reading/ReadingList.h"
+
 
 const double WindSensor::absolute_max = 180;
 const double WindSensor::absolute_min = 0;
@@ -21,7 +23,9 @@ Reading* WindSensor::simulate(const QString& name, int numEntries) const{
   for(int i=0; i < numEntries; i++){
     result->append(dis(gen));
   }
-  return new WindReading(name, result);
+  Reading* reading = new WindReading(name, result);
+  ReadingList::readinglist()->insert(getId(), reading);
+  return reading;
 }
 
 bool WindSensor::setMax(double d){
@@ -57,10 +61,10 @@ double WindSensor::getMax() const{
   return max;
 }
 
-double WindSensor::getAbsMin() const {
-  return absolute_min;
+double WindSensor::getAbsoluteMax() const{
+  return absolute_max;
 }
 
-double WindSensor::getAbsMax() const {
-  return absolute_max;
+double WindSensor::getAbsoluteMin() const{
+  return absolute_min;
 }

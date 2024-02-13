@@ -1,6 +1,7 @@
 #include<random>
 #include"RainSensor.h"
 #include"../Reading/RainReading.h"
+#include"../Reading/ReadingList.h"
 
 const unsigned int RainSensor::absolute_max = 40;
 const unsigned int RainSensor::absolute_min = 0;
@@ -21,7 +22,9 @@ Reading* RainSensor::simulate(const QString& name, int numEntries) const{
   for(int i=0; i < numEntries; i++){
     result->append(dis(gen));
   }
-  return new RainReading(name, result);
+  Reading* reading = new RainReading(name, result);
+  ReadingList::readinglist()->insert(getId(), reading);
+  return reading;
 }
 
 bool RainSensor::setMax(double d){
@@ -67,10 +70,10 @@ double RainSensor::getMax() const{
   return max;
 }
 
-double RainSensor::getAbsMin() const {
-  return absolute_min;
+double RainSensor::getAbsoluteMax() const{
+  return absolute_max;
 }
 
-double RainSensor::getAbsMax() const {
-  return absolute_max;
+double RainSensor::getAbsoluteMin() const{
+  return absolute_min;
 }

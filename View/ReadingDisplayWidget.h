@@ -6,9 +6,10 @@
 #include<QTableView>
 #include<QChart>
 #include<QChartView>
+#include"Model/Observer.h"
 #include"Model/Reading/ReadingTable.h"
 
-class ReadingDisplayWidget : public QWidget{
+class ReadingDisplayWidget : public QWidget, public Observer{
   Q_OBJECT
 private:
   ReadingTable* reading_table;
@@ -17,11 +18,15 @@ private:
   QChartView* chart_view;
   QPushButton* remove_reading;
 public:
-  ReadingDisplayWidget(QWidget* parent);
+  ReadingDisplayWidget(ReadingTable* table, QWidget* parent = nullptr);
+
+signals:
+  void readingcontained(ReadingDisplayWidget* const);
 
 public slots:
-  void addReading(Reading* reading);
   void removeReading();
+  void highlightReading(Reading* reading);
+  void update() override;
 };
 
 #endif

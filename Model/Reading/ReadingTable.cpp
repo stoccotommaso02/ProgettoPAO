@@ -12,10 +12,6 @@ Reading* ReadingTable::getReading(const QModelIndex& index) const{
   return table.at(index.row());
 }
 
-ReadingTable* ReadingTable::addTable(){
-  return new ReadingTable();
-}
-
 int ReadingTable::rowCount(const QModelIndex& parent) const{
   Q_UNUSED(parent);
   return table.count();  
@@ -71,6 +67,16 @@ void ReadingTable::remove(Reading* reading){
 
 void ReadingTable::remove(const QModelIndex& index){
   remove(getReading(index));
+}
+
+bool ReadingTable::contains(Reading* reading) const{
+  return table.contains(reading);
+}
+
+int ReadingTable::row(Reading* r) const{
+  if(contains(r))
+    return table.indexOf(r);
+  return table.size();
 }
 
 void ReadingTable::update(){

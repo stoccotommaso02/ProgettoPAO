@@ -34,31 +34,31 @@ void IconVisitor::visit(const RainSensor& sensor){
   icon.swap(image);
 };
 
-void IconVisitor::visit(const TemperatureReading& reading){
+void IconVisitor::visit(TemperatureReading& reading){
   Q_UNUSED(reading);
   QPixmap image(":/Images/temperature.svg");
   icon.swap(image);
 };
 
-void IconVisitor::visit(const WindReading& reading){
+void IconVisitor::visit(WindReading& reading){
   Q_UNUSED(reading);
   QPixmap image(":/Images/wind.svg");
   icon.swap(image);
 };
 
-void IconVisitor::visit(const DustReading& reading){
+void IconVisitor::visit(DustReading& reading){
   Q_UNUSED(reading);
   QPixmap image(":/Images/dust.svg");
   icon.swap(image);
 };
 
-void IconVisitor::visit(const HumidityReading& reading){
+void IconVisitor::visit(HumidityReading& reading){
   Q_UNUSED(reading);
   QPixmap image(":/Images/humidity.svg");
   icon.swap(image);
 };
 
-void IconVisitor::visit(const RainReading& reading){
+void IconVisitor::visit(RainReading& reading){
   Q_UNUSED(reading);
   QPixmap image(":/Images/rain.svg");
   icon.swap(image);

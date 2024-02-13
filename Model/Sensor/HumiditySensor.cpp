@@ -1,6 +1,7 @@
 #include<random>
 #include"HumiditySensor.h"
 #include"../Reading/HumidityReading.h"
+#include"../Reading/ReadingList.h"
 
 const unsigned int HumiditySensor::absolute_max = 100;
 const unsigned int HumiditySensor::absolute_min = 0;
@@ -21,7 +22,9 @@ Reading* HumiditySensor::simulate(const QString& name, int numEntries) const{
   for(int i=0; i < numEntries; i++){
     result->append(dis(gen));
   }
-  return new HumidityReading(name, result);
+  Reading* reading = new HumidityReading(name, result);
+  ReadingList::readinglist()->insert(getId(), reading);
+  return reading;
 }
 
 bool HumiditySensor::setMax(double d){
@@ -67,10 +70,11 @@ double HumiditySensor::getMax() const{
   return max;
 }
 
-double HumiditySensor::getAbsMin() const {
+double HumiditySensor::getAbsoluteMax() const{
+  return absolute_max;
+}
+
+double HumiditySensor::getAbsoluteMin() const{
   return absolute_min;
 }
 
-double HumiditySensor::getAbsMax() const {
-  return absolute_max;
-}

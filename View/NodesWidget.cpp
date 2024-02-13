@@ -55,3 +55,7 @@ void NodesWidget::leafSelect(BaseSensor* sensor){
 void NodesWidget::leafDeselect(){
   emit leafDeselected();
 }
+
+TreeNode* NodesWidget::selected() const{
+  return tree_widget->selected();
+}

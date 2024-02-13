@@ -8,9 +8,8 @@
 int main(int argc, char* argv[]){
   QApplication a(argc, argv);
   Environment* e = Environment::environment();
-  MainWindow* v = new MainWindow(e->tree());
+  MainWindow* v = new MainWindow(e);
   v->setWindowTitle("SensorSim");
-  v->updateModel();
   v->show();
   return a.exec();
 }

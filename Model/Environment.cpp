@@ -5,11 +5,13 @@ Environment* Environment::instance = nullptr;
 Environment::Environment(){
   tree_instance = Tree::tree();
   readinglist_instance = ReadingList::readinglist();
+  tablecontainer_instance = TableContainer::tablecontainer();
 }
 
 Environment::~Environment(){
   delete tree_instance;
   delete readinglist_instance;
+  delete tablecontainer_instance;
 }
 
 Environment* Environment::environment(){
@@ -24,6 +26,10 @@ Tree* Environment::tree() const{
 
 ReadingList* Environment::readinglist() const{
   return readinglist_instance;
+}
+
+TableContainer* Environment::tablecontainer() const{
+  return tablecontainer_instance;
 }
 
 QJsonObject Environment::toJson() const{

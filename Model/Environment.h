@@ -5,6 +5,7 @@
 #include<QJsonObject>
 #include"Tree/Tree.h"
 #include"Reading/ReadingList.h"
+#include"Reading/TableContainer.h"
 
 class Environment{
 private:
@@ -12,6 +13,7 @@ private:
   static Environment* instance;
   Tree* tree_instance;
   ReadingList* readinglist_instance;
+  TableContainer* tablecontainer_instance;
   QJsonObject toJson() const;
   bool fromJson(const QJsonObject& json);
   QJsonObject exportSection(TreeNode* node) const;
@@ -21,6 +23,7 @@ public:
   static Environment* environment();
   Tree* tree() const;
   ReadingList* readinglist() const;
+  TableContainer* tablecontainer() const;
   bool saveEnvironment(const QString& path) const;
   bool loadEnvironment(const QString& path);
   bool saveSection(TreeNode* head, const QString& path) const;

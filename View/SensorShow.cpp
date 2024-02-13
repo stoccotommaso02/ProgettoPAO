@@ -56,15 +56,15 @@ void SensorShow::refresh(){
 	sensor->accept(v);
 	sensor_type->setText("Type:  " + v.getType());
 	range_id->setText("Choose the values range:");
-	min_range->setMinimum(sensor->getAbsMin());
-	max_range->setMaximum(sensor->getAbsMax());
+	min_range->setRange(sensor->getAbsoluteMin(), sensor->getAbsoluteMax());
+	max_range->setRange(sensor->getAbsoluteMin(), sensor->getAbsoluteMax());
 	min_range->setValue(sensor->getMin());
 	max_range->setValue(sensor->getMax());
+	this->show();
 };
 
 void SensorShow::update(){
 	refresh();
-	QWidget::update();
 }
 
 void SensorShow::changeName(){

@@ -103,6 +103,11 @@ bool ReadingList::setData(const QModelIndex& index, const QVariant& value, int r
   notify();
 }
 
+void ReadingList::addToTable(const QModelIndex& index) const{
+  if(map.contains(getKey(index), getValue(index)))
+    TableContainer::tablecontainer()->insertReading(getValue(index));
+}
+
 void ReadingList::insert(int k, Reading* r){
   r->attach(this);
   int position = std::distance(map.begin(), map.contains(k)? map.upperBound(k) : map.lowerBound(k));
@@ -117,8 +122,10 @@ void ReadingList::remove(int k){
     return;
   int first = std::distance(map.begin(), map.lowerBound(k));
   beginRemoveRows(QModelIndex(), first, first + map.count(k) -1);
-  for(Reading* it : map.values(k))
+  for(Reading* it : map.values(k)){
+    TableContainer::tablecontainer()->removeReading(it);
     delete it;
+  }
   map.remove(k);
   endRemoveRows();
   notify();
@@ -128,6 +135,7 @@ void ReadingList::remove(Reading* r){
   auto it = map.find(map.key(r), r);
   int position = std::distance(map.begin(), it);
   beginRemoveRows(QModelIndex(), position, position);
+  TableContainer::tablecontainer()->removeReading(r);
   delete r;
   map.erase(it);
   endRemoveRows();
