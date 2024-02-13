@@ -12,11 +12,11 @@ SensorShow::SensorShow(QWidget* parent): QWidget(parent), sensor(nullptr){
 	sensor_name=new QLabel();
 	sensor_id=new QLabel();
 	sensor_type=new QLabel();
-	range_id=new QLabel();
+	range_id=new QLabel("Select the desired range of values for the data:");
 	min_range= new QDoubleSpinBox();
 	max_range= new QDoubleSpinBox();
-	simulate = new QPushButton();
-	change_name_button = new QPushButton();
+	simulate = new QPushButton("Gather Data");
+	change_name_button = new QPushButton("Change Name");
 
 	hbox->setAlignment(Qt::AlignCenter);
 	hbox->insertWidget(0,type_image);
@@ -37,8 +37,9 @@ SensorShow::SensorShow(QWidget* parent): QWidget(parent), sensor(nullptr){
 	hbox->addLayout(fieldbox);
 	hbox->addLayout(set_minmax_box);
 	hbox->addLayout(buttonbox);
+	type_image->QWidget::setFixedSize(120,120);
 	this->setEnabled(false);
-
+	
 	connect(change_name_button, &QPushButton::clicked, this, &SensorShow::changeName);
 	connect(simulate, &QPushButton::clicked, this, &SensorShow::startSimulation);
 	connect(min_range, &QDoubleSpinBox::valueChanged, this, &SensorShow::setMin);
@@ -48,13 +49,15 @@ SensorShow::SensorShow(QWidget* parent): QWidget(parent), sensor(nullptr){
 void SensorShow::refresh(){
 	IconVisitor i;
 	sensor->accept(i);
-	type_image->setText("icon");
+	type_image->setPixmap(i.getIcon());
 	sensor_name->setText("Name:  " + sensor->getName());
 	sensor_id->setText( "Id:  " + QString::number(sensor->getId()));
 	TypeSensorVisitor v;
 	sensor->accept(v);
 	sensor_type->setText("Type:  " + v.getType());
 	range_id->setText("Choose the values range:");
+	min_range->setMinimum(sensor->getAbsMin());
+	max_range->setMaximum(sensor->getAbsMax());
 	min_range->setValue(sensor->getMin());
 	max_range->setValue(sensor->getMax());
 };
