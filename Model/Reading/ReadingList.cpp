@@ -147,10 +147,8 @@ void ReadingList::remove(const QModelIndex& index){
 }
 
 void ReadingList::resetList(){
-  beginResetModel();
   for(int k : map.keys())
     remove(k);
-  endResetModel();
   notify();
 }
 
@@ -197,7 +195,7 @@ void ReadingList::jsonToEntry(const QJsonObject& json){
       if(j.isDouble())
         values->append(j.toDouble());
     }
-    map.insert(id, ReadingFactory::createReading(name, values, type));
+    insert(id, ReadingFactory::createReading(name, values, type));
   }
 }
 
@@ -257,7 +255,7 @@ void ReadingList::importEntry(const QJsonObject& json, QMap<int, int>* changed_i
       if(j.isDouble())
         values->append(j.toDouble());
     }
-    map.insert(id, ReadingFactory::createReading(name, values, type));
+    insert(id, ReadingFactory::createReading(name, values, type));
   }
 }
 

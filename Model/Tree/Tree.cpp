@@ -215,10 +215,7 @@ NodeList* Tree::search(const QString& query) const{
 }
 
 void Tree::resetTree(){
-  beginResetModel();
-  for(TreeNode* t : root->children)
-    delete t;
-  endResetModel();
+  removeRows(0, root->children.count(), QModelIndex());
 }
 
 void Tree::jsonToNode(const QJsonObject& json, TreeNode* parent){
@@ -271,7 +268,7 @@ void Tree::fromJson(const QJsonObject& json){
   if(json.contains("name") && json["name"].toString() == "root"){
     resetTree();
     if(json.contains("children") && json["children"].isArray()){
-      QJsonArray root_children;
+      QJsonArray root_children = json["children"].toArray();
       for(QJsonValue j : root_children){
         if(j.isObject())
           jsonToNode(j.toObject(), nullptr);
@@ -340,13 +337,13 @@ void Tree::importNode(const QJsonObject& json, TreeNode* parent, QMap<int,int>* 
 void Tree::importTreeNode(const QJsonObject& json, TreeNode* parent, QMap<int,int>* changed_ids){
   QString name = json["name"].toString();
   QJsonArray children_array = json["children"].toArray();
-  TreeNode* node;
+  TreeNode* node = new TreeNode(name);
   if(parent == nullptr){
-    node = root->appendChild(new TreeNode(name));
+    root->appendChild(node);
     node->parent = nullptr;
   }
   else{
-    node = parent->appendChild(new TreeNode(name));
+    node = parent->appendChild(node);
   }
   for(QJsonValue j : children_array){
     if(j.isObject())

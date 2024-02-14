@@ -67,7 +67,7 @@ bool Environment::importSection(const QJsonObject& json, TreeNode* parent){
   if( json.contains("section") && json["section"].isObject() &&
       json.contains("readinglist") && json["readinglist"].isObject()){
     QMap<int, int>* changed_ids = new QMap<int, int>();
-    tree_instance->importSection(json["tree"].toObject(), parent, changed_ids);
+    tree_instance->importSection(json["section"].toObject(), parent, changed_ids);
     readinglist_instance->importReadings(json["readinglist"].toObject(), changed_ids);
     delete changed_ids;
     return true;

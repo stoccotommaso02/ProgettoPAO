@@ -15,14 +15,14 @@ SensorShow::SensorShow(QWidget* parent): QWidget(parent), sensor(nullptr){
 	range_id=new QLabel();
 	min_range= new QDoubleSpinBox();
 	max_range= new QDoubleSpinBox();
-	simulate = new QPushButton();
-	change_name_button = new QPushButton();
+	simulate = new QPushButton("SIMULATE");
+	simulate->setStyleSheet("QPushButton {background-color: #008800}");
+	change_name_button = new QPushButton("Change Name");
 
 	hbox->setAlignment(Qt::AlignCenter);
 	hbox->insertWidget(0,type_image);
 	fieldbox->setAlignment(Qt::AlignLeft | Qt:: AlignTop);
 	fieldbox->addWidget(sensor_name);
-	fieldbox->addStretch();
 	fieldbox->addWidget(sensor_id);
 	fieldbox->addWidget(sensor_type);
 	spinboxes->setAlignment(Qt::AlignCenter);
@@ -35,7 +35,9 @@ SensorShow::SensorShow(QWidget* parent): QWidget(parent), sensor(nullptr){
 	buttonbox->addWidget(change_name_button);
 	buttonbox->addWidget(simulate);
 	hbox->addLayout(fieldbox);
+	hbox->addStretch();
 	hbox->addLayout(set_minmax_box);
+	hbox->addStretch();
 	hbox->addLayout(buttonbox);
 	this->setEnabled(false);
 
@@ -88,7 +90,7 @@ void SensorShow::startSimulation(){
 	bool ok;
   QString name = QInputDialog::getText(this, "Gather Data", "Choose a name for the reading:", QLineEdit::Normal,"",&ok);
   if(!ok) return;
-  unsigned int entry= QInputDialog::getInt(this, "Gather Data", "Select the desired amount of data gathered:", 0,0,50,1,&ok);
+  unsigned int entry= QInputDialog::getInt(this, "Gather Data", "Select the desired amount of data gathered:", 1,1,50,1,&ok);
   if(!ok) return;
 	emit simulated(sensor->getId(), sensor->simulate(name, entry));
 }

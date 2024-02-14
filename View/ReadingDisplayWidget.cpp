@@ -19,6 +19,10 @@ ReadingDisplayWidget::ReadingDisplayWidget(ReadingTable* table, QWidget* parent)
   connect(remove_reading, &QPushButton::clicked, this, &ReadingDisplayWidget::removeReading);
 }
 
+ReadingTable* ReadingDisplayWidget::getReadingTable() const{
+  return reading_table;
+}
+
 void ReadingDisplayWidget::removeReading(){
   reading_table->remove(table_view->selectionModel()->currentIndex());
 }

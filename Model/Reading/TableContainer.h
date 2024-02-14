@@ -1,29 +1,25 @@
 #ifndef TABLECONTAINER_H
 #define TABLECONTAINER_H
-#include"../Observer.h"
+#include<QMap>
+#include"../Model/Subject.h"
 #include"ReadingVisitor.h"
 #include"ReadingTable.h"
 
-class TableContainer{
+class TableContainer: public Subject{
 private:
   static TableContainer* instance;
   TableContainer();
-  QList<ReadingTable*> tables;
+  QMap<QString, ReadingTable*> tables;
 
-  class Sorter : public ReadingVisitor{
-  public:
-  virtual void visit(RainReading&) override;
-  virtual void visit(HumidityReading&) override;
-  virtual void visit(WindReading&) override;
-  virtual void visit(TemperatureReading&) override;
-  virtual void visit(DustReading&) override;
-  };
-  friend class Sorter;
+  void addTable(const QString& key);
 public:
+  int count() const;
   static TableContainer* tablecontainer();
   void insertReading(Reading* reading);
   void removeReading(Reading* reading);
+  ReadingTable* getTable(const QString& type) const;
   ReadingTable* getTable(int index) const;
+  QString getKey(ReadingTable* value) const;
 };
 
 #endif

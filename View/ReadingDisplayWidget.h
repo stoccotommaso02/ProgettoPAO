@@ -21,7 +21,7 @@ private:
   
 public:
   ReadingDisplayWidget(ReadingTable* table, QWidget* parent = nullptr);
-
+  ReadingTable* getReadingTable() const;
 signals:
   void readingcontained(ReadingDisplayWidget* const);
 

@@ -1,40 +1,19 @@
+#include<iterator>
 #include"TableContainer.h"
 #include"ReadingTable.h"
-#include"DustReading.h"
-#include"HumidityReading.h"
-#include"TemperatureReading.h"
-#include"WindReading.h"
-#include"RainReading.h"
+#include"TypeReadingVisitor.h"
 
 TableContainer* TableContainer::instance = nullptr;
 
-TableContainer::TableContainer(){
-  tables.resize(5, new ReadingTable());
-}
-
-void TableContainer::Sorter::visit(TemperatureReading& r){
-  tablecontainer()->tables.at(0)->append(&r);
-}
-
-void TableContainer::Sorter::visit(RainReading& r){
-  tablecontainer()->tables.at(1)->append(&r);
-}
-
-void TableContainer::Sorter::visit(HumidityReading& r){
-  tablecontainer()->tables.at(2)->append(&r);
-}
-
-void TableContainer::Sorter::visit(WindReading& r){
-  tablecontainer()->tables.at(3)->append(&r);
-}
-
-void TableContainer::Sorter::visit(DustReading& r){
-  tablecontainer()->tables.at(4)->append(&r);
-}
+TableContainer::TableContainer(){}
 
 void TableContainer::insertReading(Reading* r){
-  Sorter s;
-  r->accept(s);
+  TypeReadingVisitor v;
+  r->accept(v);
+  QString type = v.getType();
+  if(!tables.contains(type))
+    addTable(type);
+  tables.value(type)->append(r);
 }
 
 void TableContainer::removeReading(Reading* r){
@@ -49,8 +28,29 @@ TableContainer* TableContainer::tablecontainer(){
   return instance;
 }
 
+ReadingTable* TableContainer::getTable(const QString& type) const{
+  return tables.value(type);
+}
+
 ReadingTable* TableContainer::getTable(int index) const{
-  if(index < 0 || index >= tables.size())
+  if(index < 0 || index >= tables.count())
     return nullptr;
-  return tables.at(index);
+  auto pos = tables.begin();
+  for(int i=0; i < index; i++){
+    pos++;
+  }
+  return pos.value();
+}
+
+QString TableContainer::getKey(ReadingTable* value) const{
+  return tables.key(value);
+}
+
+void TableContainer::addTable(const QString&  key){
+  tables.insert(key, new ReadingTable());
+  notify();
+}
+
+int TableContainer::count() const{
+  return tables.count();
 }

@@ -19,6 +19,7 @@ private:
 
 public:
   ReadingListWidget(ReadingList* rl, QWidget* parent =nullptr);
+  
 signals:
   void displayReading(Reading* reading);
 
