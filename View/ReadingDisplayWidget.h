@@ -11,12 +11,14 @@
 
 class ReadingDisplayWidget : public QWidget, public Observer{
   Q_OBJECT
+
 private:
   ReadingTable* reading_table;
   QTabWidget* tabs;
   QTableView* table_view;
   QChartView* chart_view;
   QPushButton* remove_reading;
+  
 public:
   ReadingDisplayWidget(ReadingTable* table, QWidget* parent = nullptr);
 

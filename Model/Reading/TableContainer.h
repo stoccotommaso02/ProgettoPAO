@@ -1,6 +1,5 @@
 #ifndef TABLECONTAINER_H
 #define TABLECONTAINER_H
-#include<QList>
 #include"../Observer.h"
 #include"ReadingVisitor.h"
 #include"ReadingTable.h"

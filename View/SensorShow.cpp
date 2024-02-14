@@ -64,6 +64,7 @@ void SensorShow::refresh(){
 
 void SensorShow::update(){
 	refresh();
+	QWidget::update();
 }
 
 void SensorShow::changeName(){
@@ -98,6 +99,8 @@ void SensorShow::addSensor(BaseSensor* s){
 	if(sensor != nullptr)
 		sensor->detach(this);
 	sensor = s;
+	if(sensor)
+		sensor->attach(this);
 	this->setEnabled(true);
 	refresh();
 }

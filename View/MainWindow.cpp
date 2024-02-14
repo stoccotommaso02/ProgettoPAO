@@ -19,7 +19,7 @@ MainWindow::MainWindow(Environment* e, QWidget* parent): QMainWindow(parent), en
 
   topsplit->addWidget(nodes_view);
   topsplit->addWidget(sensor_show);
-  bottomsplit->addWidget(tablecontainer_widget);
+  bottomsplit->addWidget(readinglist_widget);
   bottomsplit->addWidget(tablecontainer_widget);
   splitter->addWidget(topsplit);
   splitter->addWidget(bottomsplit);
@@ -27,17 +27,17 @@ MainWindow::MainWindow(Environment* e, QWidget* parent): QMainWindow(parent), en
   QAction* save_environment = new QAction("Save");
   save_environment->setShortcut(Qt::CTRL | Qt::Key_S);
   QAction* save_as_environment = new QAction("Save As...");
-  save_as_environment->setShortcut(Qt::CTRL | Qt::Key_S | Qt::SHIFT);
+  save_as_environment->setShortcut(Qt::CTRL | Qt::Key_S | Qt::ShiftModifier);
   QAction* load_environment = new QAction("Load");
   load_environment->setShortcut(Qt::CTRL | Qt::Key_O);
   QAction* import_section = new QAction("Import section");
   QAction* export_section = new QAction("Export Section");
-
-  QMenu* file = menuBar()->addMenu("File");
+  
+  QMenu* file = menuBar()->addMenu("&File");
   file->addAction(save_environment);
   file->addAction(save_as_environment);
   file->addAction(load_environment);
-  QMenu* sections = menuBar()->addMenu("Sections");
+  QMenu* sections = menuBar()->addMenu("&Sections");
   sections->addAction(import_section);
   sections->addAction(export_section);
 
@@ -57,30 +57,30 @@ void MainWindow::loadSection(){
     QMessageBox::StandardButton warn = QMessageBox::warning(this, "Invalid parent node", "Please select a different node", QMessageBox::StandardButton::Ok);
     return;
   }
-  QString path = QFileDialog::getOpenFileName(this, "Import Section", "./", "JSON files *.json");
+  QString path = QFileDialog::getOpenFileName(this, "Import Section", "./", "JSON files (*.json)");
   if(!path.isEmpty())
     environment->loadSection(parent, path);
 }
 
 void MainWindow::saveSection(){
-  QString path = QFileDialog::getOpenFileName(this, "Export Section", "./", "JSON files .json");
+  QString path = QFileDialog::getSaveFileName(this, "Export Section", "./", "JSON files (*.json)");
   if(!path.isEmpty())
     environment->saveSection(nodes_view->selected(), path);
 }
 
 void MainWindow::loadEnvironment(){
-  QString path = QFileDialog::getOpenFileName(this, "Load Environment", "./", "JSON files *.json");
+  QString path = QFileDialog::getOpenFileName(this, "Load Environment", "./", "JSON files (*.json)");
   if(!path.isEmpty())
     environment->loadEnvironment(path);
 }
 
 void MainWindow::saveEnvironment(){
   if(savepath.isEmpty())
-    savepath = QFileDialog::getOpenFileName(this, "Save Environment", "./", "JSON files .json");
+    savepath = QFileDialog::getSaveFileName(this, "Save Environment", "./", "JSON files (*.json)");
   environment->saveEnvironment(savepath);
 }
 
 void MainWindow::saveAsEnvironment(){
-  QString path = QFileDialog::getOpenFileName(this, "Save Environment", "./", "JSON files .json");
+  QString path = QFileDialog::getSaveFileName(this, "Save Environment", "./", "JSON files (*.json)");
   environment->saveEnvironment(path);
 }

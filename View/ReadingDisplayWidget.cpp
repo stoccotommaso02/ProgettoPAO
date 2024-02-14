@@ -5,7 +5,7 @@ ReadingDisplayWidget::ReadingDisplayWidget(ReadingTable* table, QWidget* parent)
   tabs = new QTabWidget();
   reading_table = table;
   reading_table->attach(this);
-  QWidget* table_button;
+  QWidget* table_button = new QWidget();
   QVBoxLayout* vbox = new QVBoxLayout(table_button);
   table_view = new QTableView();
   chart_view = new QChartView();
