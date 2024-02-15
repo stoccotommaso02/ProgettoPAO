@@ -14,6 +14,7 @@ void TableContainer::insertReading(Reading* r){
   if(!tables.contains(type))
     addTable(type);
   tables.value(type)->append(r);
+  notify();
 }
 
 void TableContainer::removeReading(Reading* r){

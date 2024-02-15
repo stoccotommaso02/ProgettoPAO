@@ -35,9 +35,9 @@ QVariant ReadingTable::headerData(int section, Qt::Orientation orientation, int 
   if(role != Qt::DisplayRole)
     return QVariant();
   if(orientation == Qt::Horizontal && section > 0 && section < columnCount())
-    return section;
+    return QVariant(QString::number(section));
   if(orientation == Qt::Vertical && section > 0 && section < rowCount())
-    return table.at(section)->getName();
+    return QVariant(table.at(section)->getName());
   return QVariant();
 }
 

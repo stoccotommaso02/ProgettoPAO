@@ -1,8 +1,11 @@
 #include"TableContainerWidget.h"
+#include<QHBoxLayout>
 
 TableContainerWidget::TableContainerWidget(TableContainer* tc, QWidget* parent): QWidget(parent), tablecontainer(tc){
   tablecontainer->attach(this);
   tabs = new QTabWidget();
+  QHBoxLayout* hbox = new QHBoxLayout(this);
+  hbox->addWidget(tabs);
 }
 
 void TableContainerWidget::highlightReading(Reading* r){

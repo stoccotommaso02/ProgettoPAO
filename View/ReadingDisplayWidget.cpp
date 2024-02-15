@@ -1,14 +1,17 @@
 #include"ReadingDisplayWidget.h"
 #include<QVBoxLayout>
-
+#include<QHBoxLayout>
 ReadingDisplayWidget::ReadingDisplayWidget(ReadingTable* table, QWidget* parent): QWidget(parent){
   tabs = new QTabWidget();
+  QHBoxLayout* hbox = new QHBoxLayout(this);
+  hbox->addWidget(tabs);
   reading_table = table;
   reading_table->attach(this);
   chart = new ReadingChart();
   QWidget* table_button = new QWidget();
   QVBoxLayout* vbox = new QVBoxLayout(table_button);
   table_view = new QTableView();
+  table_view->setModel(table);
   chart_view = new ChartView(chart);
   remove_reading = new QPushButton("Remove Reading");
   vbox->addWidget(table_view);
@@ -25,7 +28,10 @@ ReadingTable* ReadingDisplayWidget::getReadingTable() const{
 }
 
 void ReadingDisplayWidget::removeReading(){
-  Reading* removed = reading_table->getReading(table_view->selectionModel()->currentIndex());
+  QModelIndex index = table_view->selectionModel()->currentIndex();
+  if(!index.isValid())
+    return;
+  Reading* removed = reading_table->getReading(index);
   chart->removeReading(removed);
   reading_table->remove(removed);
 }

@@ -13,6 +13,7 @@ void ReadingChart::addReading(Reading* reading){
   series->attach(this);
   QMap::insert(reading, series);
   QChart::addSeries(series);
+  QChart::createDefaultAxes();
 }
 
 void ReadingChart::removeReading(Reading* reading){

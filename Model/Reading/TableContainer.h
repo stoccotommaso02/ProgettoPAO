@@ -1,7 +1,7 @@
 #ifndef TABLECONTAINER_H
 #define TABLECONTAINER_H
 #include<QMap>
-#include"../Model/Subject.h"
+#include"../Subject.h"
 #include"ReadingVisitor.h"
 #include"ReadingTable.h"
 
