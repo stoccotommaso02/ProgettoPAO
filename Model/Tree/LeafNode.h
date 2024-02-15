@@ -17,7 +17,7 @@ private:
   virtual int childCount() const override;
   QVariant getData(int column) const;
   virtual bool setName(const QString& n) override;
-  virtual void update() override;
+  virtual void observerUpdate() override;
 };
 
 #endif

@@ -42,6 +42,6 @@ void ReadingListWidget::addClicked(){
   }
 }
 
-void ReadingListWidget::update(){
+void ReadingListWidget::observerUpdate(){
   QWidget::update();
 }

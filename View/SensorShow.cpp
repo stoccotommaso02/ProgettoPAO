@@ -64,7 +64,7 @@ void SensorShow::refresh(){
 	this->show();
 };
 
-void SensorShow::update(){
+void SensorShow::observerUpdate(){
 	refresh();
 	QWidget::update();
 }

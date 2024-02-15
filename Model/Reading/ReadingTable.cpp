@@ -56,6 +56,7 @@ void ReadingTable::append(Reading* reading){
     table.append(reading);
   }
   endInsertRows();
+  notify();
 }
 
 void ReadingTable::remove(Reading* reading){
@@ -63,6 +64,7 @@ void ReadingTable::remove(Reading* reading){
   table.removeAll(reading);
   endRemoveRows();
   reading->detach(this);
+  notify();
 }
 
 void ReadingTable::remove(const QModelIndex& index){
@@ -79,6 +81,11 @@ int ReadingTable::row(Reading* r) const{
   return table.size();
 }
 
-void ReadingTable::update(){
+void ReadingTable::observerUpdate(){
   notify();
+}
+
+
+const QList<Reading*> ReadingTable::getTable() const{
+  return table;
 }

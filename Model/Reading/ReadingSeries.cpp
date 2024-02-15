@@ -9,7 +9,7 @@ ReadingSeries::~ReadingSeries(){
   reading->detach(this);
 }
 
-void ReadingSeries::update(){
+void ReadingSeries::observerUpdate(){
   setName(reading->getName());
   notify();
 }

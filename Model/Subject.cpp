@@ -2,7 +2,7 @@
 
 void Subject::notify() const{
   for(Observer* o : observers){
-    o->update();
+    o->observerUpdate();
   }
 }
 

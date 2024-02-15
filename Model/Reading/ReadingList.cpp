@@ -1,6 +1,5 @@
 #include"ReadingList.h"
 #include<iterator>
-#include"FilteredList.h"
 #include"TypeReadingVisitor.h"
 
 ReadingList* ReadingList::instance = nullptr;
@@ -259,6 +258,6 @@ void ReadingList::importEntry(const QJsonObject& json, QMap<int, int>* changed_i
   }
 }
 
-void ReadingList::update(){
+void ReadingList::observerUpdate(){
   notify();
 }

@@ -44,7 +44,7 @@ void NodesWidget::displaySearch(){
   stack->setCurrentIndex(1);
 }
 
-void NodesWidget::update(){
+void NodesWidget::observerUpdate(){
   QWidget::update();
 }
 

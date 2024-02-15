@@ -4,7 +4,7 @@
 class Observer{
 public:
   virtual ~Observer(){};
-  virtual void update() =0;
+  virtual void observerUpdate() =0;
 };
 
 #endif

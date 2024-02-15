@@ -12,7 +12,7 @@ private:
 public:
   ReadingSeries(Reading* r);
   virtual ~ReadingSeries();
-  virtual void update() override;
+  virtual void observerUpdate() override;
 };
 
 #endif

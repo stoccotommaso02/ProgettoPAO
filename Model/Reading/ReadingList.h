@@ -43,7 +43,7 @@ public:
   void fromJson(const QJsonObject& json);
   QJsonObject exportReadings(QList<int>* ids) const;
   void importReadings(const QJsonObject& json, QMap<int,int>* changed_ids);
-  virtual void update() override;
+  virtual void observerUpdate() override;
 };
 
 #endif

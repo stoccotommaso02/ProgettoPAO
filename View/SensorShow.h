@@ -26,7 +26,7 @@ private:
 public:
 	SensorShow(QWidget* parent = nullptr);
 	void refresh();
-	virtual void update() override;
+	virtual void observerUpdate() override;
 
 signals:
 	void simulated(int id, Reading* reading);

@@ -23,7 +23,6 @@ HEADERS +=  Model/Sensor/BaseSensor.h \
             Model/Reading/TypeReadingVisitor.h \
             Model/Reading/ReadingTable.h \
             Model/Reading/ReadingList.h \
-            Model/Reading/FilteredList.h \
             Model/Reading/ReadingSeries.h \
             Model/Reading/TableContainer.h \
             Model/Tree/TreeNode.h \
@@ -43,6 +42,8 @@ HEADERS +=  Model/Sensor/BaseSensor.h \
             View/ReadingListWidget.h \
             View/ReadingDisplayWidget.h \
             View/TableContainerWidget.h \
+            View/ReadingChart.h \
+            View/ChartView.h \
             View/NodesWidget.h
 
 
@@ -64,7 +65,6 @@ SOURCES +=  Model/Sensor/BaseSensor.cpp \
             Model/Reading/TypeReadingVisitor.cpp \
             Model/Reading/ReadingTable.cpp \
             Model/Reading/ReadingList.cpp \
-            Model/Reading/FilteredList.cpp \
             Model/Reading/ReadingSeries.cpp \
             Model/Reading/TableContainer.cpp \
             Model/Tree/TreeNode.cpp \
@@ -84,6 +84,8 @@ SOURCES +=  Model/Sensor/BaseSensor.cpp \
             View/ReadingDisplayWidget.cpp \
             View/TableContainerWidget.cpp \
             View/ResultsWidget.cpp \
+            View/ReadingChart.cpp \
+            View/ChartView.cpp \
             main.cpp
 
 RESOURCES += \

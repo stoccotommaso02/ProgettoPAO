@@ -16,14 +16,13 @@ private:
   void addNewTable(const QString& name, ReadingTable* table);
 public:
   TableContainerWidget(TableContainer* tc, QWidget* parent =nullptr);
-
+  virtual void observerUpdate() override;
 signals:
   void searchReading(Reading*);
 
 public slots:
   void highlightReading(Reading* reading);
   void changeTab(ReadingDisplayWidget* const);
-  virtual void update() override;
 };
 
 #endif

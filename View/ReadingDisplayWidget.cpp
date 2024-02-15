@@ -5,10 +5,11 @@ ReadingDisplayWidget::ReadingDisplayWidget(ReadingTable* table, QWidget* parent)
   tabs = new QTabWidget();
   reading_table = table;
   reading_table->attach(this);
+  chart = new ReadingChart();
   QWidget* table_button = new QWidget();
   QVBoxLayout* vbox = new QVBoxLayout(table_button);
   table_view = new QTableView();
-  chart_view = new QChartView();
+  chart_view = new ChartView(chart);
   remove_reading = new QPushButton("Remove Reading");
   vbox->addWidget(table_view);
   vbox->addWidget(remove_reading);
@@ -24,7 +25,9 @@ ReadingTable* ReadingDisplayWidget::getReadingTable() const{
 }
 
 void ReadingDisplayWidget::removeReading(){
-  reading_table->remove(table_view->selectionModel()->currentIndex());
+  Reading* removed = reading_table->getReading(table_view->selectionModel()->currentIndex());
+  chart->removeReading(removed);
+  reading_table->remove(removed);
 }
 
 void ReadingDisplayWidget::highlightReading(Reading* r){
@@ -36,6 +39,15 @@ void ReadingDisplayWidget::highlightReading(Reading* r){
   }
 }
 
-void ReadingDisplayWidget::update(){
+void ReadingDisplayWidget::observerUpdate(){
   QWidget::update();
+  for(Reading* r : reading_table->getTable()){
+    if(!chart->QMap::contains(r)){
+      chart->addReading(r);
+    }
+  }
+  for(Reading* r : chart->keys()){
+    if(!reading_table->contains(r))
+      chart->removeReading(r);
+  }
 }

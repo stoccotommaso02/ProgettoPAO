@@ -42,7 +42,7 @@ bool LeafNode::setName(const QString& n){
   return true;
 }
 
-void LeafNode::update(){
+void LeafNode::observerUpdate(){
   name = sensor->getName();
   notify();
 }

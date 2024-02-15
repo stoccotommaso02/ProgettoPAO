@@ -27,7 +27,7 @@ public slots:
   void findReading(int id, Reading* reading);
   void deleteReadingClicked();
   void addClicked();
-  virtual void update() override;
+  virtual void observerUpdate() override;
 };
 
 #endif

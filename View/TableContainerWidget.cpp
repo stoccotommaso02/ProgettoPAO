@@ -3,7 +3,6 @@
 TableContainerWidget::TableContainerWidget(TableContainer* tc, QWidget* parent): QWidget(parent), tablecontainer(tc){
   tablecontainer->attach(this);
   tabs = new QTabWidget();
-
 }
 
 void TableContainerWidget::highlightReading(Reading* r){
@@ -14,7 +13,7 @@ void TableContainerWidget::changeTab(ReadingDisplayWidget* const widget){
   tabs->setCurrentWidget(widget);
 }
 
-void TableContainerWidget::update(){
+void TableContainerWidget::observerUpdate(){
   int count = tablecontainer->count();
   for(int i=0; i < count; i++){
     bool found = false;
@@ -34,6 +33,8 @@ void TableContainerWidget::update(){
 
 void TableContainerWidget::addNewTable(const QString& type, ReadingTable* table){
   displays.append(new ReadingDisplayWidget(table));
-  displays.last(); // SLOT & CONNECT & SHIET
+  displays.last();
   tabs->addTab(displays.last(), type);
+  connect(displays.last(), &ReadingDisplayWidget::readingcontained, this, &TableContainerWidget::changeTab);
+  connect(this, &TableContainerWidget::searchReading, displays.last(), &ReadingDisplayWidget::highlightReading);
 }

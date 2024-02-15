@@ -61,7 +61,7 @@ public:
   QJsonObject toJson() const;
   void importSection(const QJsonObject& json, TreeNode* parent, QMap<int, int>* changed_ids);
   QJsonObject exportSection(TreeNode* head, QList<int>* ids) const;
-  virtual void update() override;
+  virtual void observerUpdate() override;
 };
 
 #endif

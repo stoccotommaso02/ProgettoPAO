@@ -405,6 +405,6 @@ QJsonObject Tree::exportLeafNode(TreeNode* node, QList<int>* ids) const{
   return json;
 };
 
-void Tree::update(){
+void Tree::observerUpdate(){
   notify();
 }
