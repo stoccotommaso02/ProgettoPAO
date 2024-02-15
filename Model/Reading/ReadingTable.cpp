@@ -23,20 +23,18 @@ int ReadingTable::columnCount(const QModelIndex& parent) const{
 }
 
 QVariant ReadingTable::data(const QModelIndex& index, int role) const{
-  if(!index.isValid() || role != Qt::DisplayRole)
+  if(role != Qt::DisplayRole)
     return QVariant();
   Reading* r = getReading(index);
-  if(index.column() > r->getSize())
-    return QVariant();
   return r->getValue(index.column());
 }
 
 QVariant ReadingTable::headerData(int section, Qt::Orientation orientation, int role) const{
   if(role != Qt::DisplayRole)
     return QVariant();
-  if(orientation == Qt::Horizontal && section > 0 && section < columnCount())
+  if(orientation == Qt::Horizontal && section >= 0)
     return QVariant(QString::number(section));
-  if(orientation == Qt::Vertical && section > 0 && section < rowCount())
+  if(orientation == Qt::Vertical && section >= 0)
     return QVariant(table.at(section)->getName());
   return QVariant();
 }
@@ -45,7 +43,7 @@ void ReadingTable::append(Reading* reading){
   if(table.contains(reading) || reading == nullptr)
     return;
   reading->attach(this);
-  beginInsertRows(QModelIndex(), rowCount(), rowCount());
+  beginInsertRows(QModelIndex(), table.size(), table.size());
   int size = reading->getSize();
   if(size > max_entries){
     beginInsertColumns(QModelIndex(), max_entries, size-1);

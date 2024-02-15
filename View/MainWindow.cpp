@@ -55,6 +55,7 @@ void MainWindow::loadSection(){
   TreeNode* parent = nodes_view->selected();
   if(environment->tree()->leaf(parent) || parent == nullptr){
     QMessageBox::StandardButton warn = QMessageBox::warning(this, "Invalid parent node", "Please select a different node", QMessageBox::StandardButton::Ok);
+    Q_UNUSED(warn);
     return;
   }
   QString path = QFileDialog::getOpenFileName(this, "Import Section", "./", "JSON files (*.json)");
