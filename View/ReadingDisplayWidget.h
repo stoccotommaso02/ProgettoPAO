@@ -3,7 +3,7 @@
 #include<QWidget>
 #include<QPushButton>
 #include<QTabWidget>
-#include<QTableView>
+#include<QColumnView>
 #include"Model/Observer.h"
 #include"Model/Reading/ReadingTable.h"
 #include"ReadingChart.h"
@@ -15,7 +15,7 @@ private:
   ReadingTable* reading_table;
   ReadingChart* chart;
   QTabWidget* tabs;
-  QTableView* table_view;
+  QColumnView* table_view;
   ChartView* chart_view;
   QPushButton* remove_reading;
   

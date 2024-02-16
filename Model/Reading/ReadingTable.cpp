@@ -9,60 +9,61 @@ ReadingTable::~ReadingTable(){
 Reading* ReadingTable::getReading(const QModelIndex& index) const{
   if(!index.isValid())
     return nullptr;
-  return table.at(index.row());
+  Reading* reading = static_cast<Reading*>(index.internalPointer());
+  if(reading)
+    return reading;
+  return nullptr;
+}
+
+QModelIndex ReadingTable::getIndex(Reading* reading) const{
+  int row = table.indexOf(reading);
+  return index(row, 0, QModelIndex());
+}
+
+QModelIndex ReadingTable::index(int row, int column, const QModelIndex& parent) const{
+  if(column != 0 || row < 0)
+    return QModelIndex();
+  if(!parent.isValid()){
+    (row < table.count())? createIndex(row, column, table.at(row)) : QModelIndex();
+  }
+  if(parent.isValid()){
+    createIndex(row, column, table.at(row));
+  }
+}
+
+QModelIndex ReadingTable::parent(const QModelIndex& index) const{
+  if(!index.isValid())
+    return QModelIndex();
+  return getIndex(getReading(index));
 }
 
 int ReadingTable::rowCount(const QModelIndex& parent) const{
-  Q_UNUSED(parent);
-  return table.count();  
+  if(parent == QModelIndex())
+    return table.count();
+  return getReading(parent)->getSize();
 }
 
 int ReadingTable::columnCount(const QModelIndex& parent) const{
   Q_UNUSED(parent);
-  return max_entries;
+  return 1;
 }
 
 QVariant ReadingTable::data(const QModelIndex& index, int role) const{
   if(role != Qt::DisplayRole || !index.isValid())
     return QVariant();
-  if(index.row() < 0 || index.row() > table.count())
-    return QVariant();
-  Reading* r = table.at(index.row());
-  if(index.column() >= r->getSize())
-    return QVariant();
-  return r->getValue(index.column());
+  if(index.parent() == QModelIndex())
+    return getReading(index)->getName();
+  if(index.parent() != QModelIndex())
+    return getReading(index)->getValue(index.row());
 }
 
-QVariant ReadingTable::headerData(int section, Qt::Orientation orientation, int role) const{
-  if(role != Qt::DisplayRole)
-    return QVariant();
-  if(orientation == Qt::Horizontal && section >= 0)
-    return QVariant(QString::number(section));
-  if(orientation == Qt::Vertical && section >= 0)
-    return QVariant(table.at(section)->getName());
-  return QVariant();
-}
-
-bool ReadingTable::setData(const QModelIndex& index, const QVariant& value, int role){
-  Q_UNUSED(value); Q_UNUSED(role);
-  emit dataChanged(index, index);
-  return false;
-}
-
-bool ReadingTable::setHeaderData(int section, Qt::Orientation orientation, const QVariant& value, int role){
-  if(orientation == Qt::Horizontal || role != Qt::EditRole)
-    return false;
-  if(section < table.count()){
-    table.at(section)->setName(value.toString());
-    emit headerDataChanged(orientation, section, section);
+bool ReadingTable::hasChildren(const QModelIndex& parent) const{
+  if(!parent.isValid())
     return true;
-  }
-  return false;
-}
-
-Qt::ItemFlags ReadingTable::flags(const QModelIndex& index) const{
-  Q_UNUSED(index);
-  return (Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+  if(!parent.parent().isValid())
+    return true;
+  else
+    return false;
 }
 
 void ReadingTable::append(Reading* reading){
@@ -70,28 +71,27 @@ void ReadingTable::append(Reading* reading){
     return;
   reading->attach(this);
   beginInsertRows(QModelIndex(), table.size(), table.size());
-  int size = reading->getSize();
-  if(size > max_entries){
-    beginInsertColumns(QModelIndex(), max_entries, size-1);
-    table.append(reading);
-    endInsertColumns();
-  }
-  else{
-    table.append(reading);
-  }
+  beginInsertRows(index(table.count(), 0, QModelIndex()), 0, reading->getSize()-1);
+  table.append(reading);
   endInsertRows();
+  endInsertRows();
+
   notify();
 }
 
 void ReadingTable::remove(Reading* reading){
   beginRemoveRows(QModelIndex(), table.indexOf(reading), table.indexOf(reading));
+  beginRemoveRows(index(table.indexOf(reading), 0, QModelIndex()), 0, reading->getSize()-1);
   table.removeAll(reading);
+  endRemoveRows();
   endRemoveRows();
   reading->detach(this);
   notify();
 }
 
 void ReadingTable::remove(const QModelIndex& index){
+  if(index.parent().isValid())
+    return;
   remove(getReading(index));
 }
 

@@ -8,21 +8,20 @@
 #include"Reading.h"
 #include"ReadingSeries.h"
 
-class ReadingTable : public QAbstractTableModel, public Observer, public Subject{
+class ReadingTable : public QAbstractItemModel, public Observer, public Subject{
 private:
   QList<Reading*> table;
-  int max_entries;
 public:
-  ReadingTable(): max_entries(0){};
+  ReadingTable(){};
   virtual ~ReadingTable();
+  virtual QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const override;
+  virtual QModelIndex parent(const QModelIndex& index) const override;
   virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
   virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
   virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
-  virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
-  virtual bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;
-  virtual bool setHeaderData(int section, Qt::Orientation orientation, const QVariant& value, int role = Qt::EditRole);
-  Qt::ItemFlags flags(const QModelIndex& index) const;
+  virtual bool hasChildren(const QModelIndex& parent = QModelIndex()) const;
   Reading* getReading(const QModelIndex& index) const;
+  QModelIndex getIndex(Reading* reading) const;
   void append(Reading* reading);
   void remove(Reading* reading);
   void remove(const QModelIndex& index);

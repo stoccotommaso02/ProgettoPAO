@@ -10,7 +10,7 @@ ReadingDisplayWidget::ReadingDisplayWidget(ReadingTable* table, QWidget* parent)
   chart = new ReadingChart();
   QWidget* table_button = new QWidget();
   QVBoxLayout* vbox = new QVBoxLayout(table_button);
-  table_view = new QTableView();
+  table_view = new QColumnView();
   table_view->setModel(table);
   chart_view = new ChartView(chart);
   remove_reading = new QPushButton("Remove Reading");
