@@ -10,7 +10,6 @@ TreeWidget::TreeWidget(Tree* t, QWidget* parent): tree_model(t), QWidget(parent)
   create_node = new QPushButton("Add node");
   create_sensor = new QPushButton("Add sensor");
   remove_node = new QPushButton("Delete node");
-  resetbutton = new QPushButton("reset");
   tree_view = new DTreeView();
   tree_view->setModel(tree_model);
 
@@ -19,7 +18,7 @@ TreeWidget::TreeWidget(Tree* t, QWidget* parent): tree_model(t), QWidget(parent)
   hbox->addStretch();
   hbox->addWidget(create_sensor);
   hbox->addStretch();
-  hbox->addWidget(resetbutton);
+  hbox->addWidget(remove_node);
   hbox->addStretch();
 
   vbox->addWidget(tree_view);
@@ -29,7 +28,6 @@ TreeWidget::TreeWidget(Tree* t, QWidget* parent): tree_model(t), QWidget(parent)
   connect(create_sensor, &QPushButton::clicked, this, &TreeWidget::createSensor);
   connect(remove_node, &QPushButton::clicked, this, &TreeWidget::removeNode);
   connect(tree_view->selectionModel(), &QItemSelectionModel::currentChanged, this, &TreeWidget::handleSelection);
-  connect(resetbutton, &QPushButton::clicked, this, &TreeWidget::resettree);
 }
 
 void TreeWidget::createNode(){
@@ -38,6 +36,7 @@ void TreeWidget::createNode(){
   if(tree_model->leaf(parent)){
     QMessageBox::StandardButton warn;
     warn = QMessageBox::warning(this, "Invalid operation", "Cannot add a child to a sensor node", QMessageBox::Ok);
+    Q_UNUSED(warn);
     return;
   }
   
@@ -53,6 +52,7 @@ void TreeWidget::createSensor(){
 
     if(tree_model->leaf(parent)){
       QMessageBox::StandardButton warn = QMessageBox::warning(this, "Invalid operation", "Cannot add a child to a sensor node", QMessageBox::Ok);
+      Q_UNUSED(warn);
       return;
   }
 
@@ -88,9 +88,4 @@ void TreeWidget::handleSelection(const QModelIndex& current, const QModelIndex& 
 TreeNode* TreeWidget::selected() const{
   QModelIndex index = tree_view->selectionModel()->currentIndex();
   return tree_model->getNode(index);
-}
-
-void TreeWidget::resettree(){
-  tree_model->resetTree();
-  tree_view->setModel(tree_model);
 }

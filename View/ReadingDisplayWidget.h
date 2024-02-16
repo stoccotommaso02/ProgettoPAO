@@ -27,7 +27,7 @@ signals:
 public slots:
   void removeReading();
   void highlightReading(Reading* reading);
-  void observerUpdate() override;
+  virtual void observerUpdate() override;
 };
 
 #endif

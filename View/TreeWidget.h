@@ -20,7 +20,6 @@ private:
   QPushButton* create_sensor;
   QPushButton* remove_node;
   QTreeView* tree_view;
-  QPushButton* resetbutton;
 
 public:
   explicit TreeWidget(Tree* t, QWidget* parent =nullptr);
@@ -35,7 +34,6 @@ public slots:
   void removeNode();
   void selectNode(TreeNode* node);
   void handleSelection(const QModelIndex& current, const QModelIndex& previous);
-  void resettree();
 };
 
 #endif

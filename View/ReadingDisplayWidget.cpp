@@ -56,4 +56,5 @@ void ReadingDisplayWidget::observerUpdate(){
       chart->removeReading(r);
   }
   table_view->setModel(table_view->model());
+  show();
 }
