@@ -6,6 +6,7 @@ Reading::~Reading(){
 
 void Reading::setName(QString n){
   this->name = n;
+  notify();
 };
 
 QString Reading::getName() const{
@@ -16,8 +17,8 @@ int Reading::getSize() const{
   return reading->count();
 }
 
-const QVariant Reading::getValue(int index) const{
-  return ((index >= 0) && (index < reading->count()))? reading->at(index) : QVariant();
+const double Reading::getValue(int index) const{
+  return reading->at(index);
 }
 
 ReadingSeries* Reading::toSeries() const{

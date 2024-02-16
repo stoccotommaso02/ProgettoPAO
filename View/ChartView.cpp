@@ -9,5 +9,6 @@ ChartView::~ChartView(){
 }
 
 void ChartView::observerUpdate(){
+  setChart(chart());
   QWidget::update();
 }

@@ -23,9 +23,13 @@ int ReadingTable::columnCount(const QModelIndex& parent) const{
 }
 
 QVariant ReadingTable::data(const QModelIndex& index, int role) const{
-  if(role != Qt::DisplayRole)
+  if(role != Qt::DisplayRole || !index.isValid())
     return QVariant();
-  Reading* r = getReading(index);
+  if(index.row() < 0 || index.row() > table.count())
+    return QVariant();
+  Reading* r = table.at(index.row());
+  if(index.column() >= r->getSize())
+    return QVariant();
   return r->getValue(index.column());
 }
 

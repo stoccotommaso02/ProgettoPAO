@@ -27,4 +27,5 @@ void ReadingChart::removeReading(Reading* reading){
 
 void ReadingChart::observerUpdate(){
   notify();
+  update();
 }

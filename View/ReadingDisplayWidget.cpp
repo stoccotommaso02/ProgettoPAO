@@ -46,7 +46,6 @@ void ReadingDisplayWidget::highlightReading(Reading* r){
 }
 
 void ReadingDisplayWidget::observerUpdate(){
-  QWidget::update();
   for(Reading* r : reading_table->getTable()){
     if(!chart->QMap::contains(r)){
       chart->addReading(r);
@@ -56,4 +55,5 @@ void ReadingDisplayWidget::observerUpdate(){
     if(!reading_table->contains(r))
       chart->removeReading(r);
   }
+  table_view->setModel(table_view->model());
 }
