@@ -174,7 +174,7 @@ QJsonObject ReadingList::entryToJson(int key, Reading* value) const{
   value->accept(v);
   json.insert("type", v.getType());
   for(int i =0; i < value->getSize(); i++){
-    values_array.append(value->getValue(i).toDouble());
+    values_array.append(value->getValue(i));
   }
   json.insert("values", values_array);
   return json;

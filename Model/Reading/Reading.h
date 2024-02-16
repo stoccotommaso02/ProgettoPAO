@@ -19,7 +19,7 @@ public:
   void setName(QString n);
   QString getName() const;
   int getSize() const;
-  const double getValue(int index) const;
+  double getValue(int index) const;
   virtual void accept(ReadingVisitor& v) =0;
   ReadingSeries* toSeries() const;
 };

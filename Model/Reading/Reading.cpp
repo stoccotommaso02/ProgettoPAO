@@ -17,7 +17,7 @@ int Reading::getSize() const{
   return reading->count();
 }
 
-const double Reading::getValue(int index) const{
+double Reading::getValue(int index) const{
   return reading->at(index);
 }
 

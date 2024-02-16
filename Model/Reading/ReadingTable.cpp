@@ -43,6 +43,28 @@ QVariant ReadingTable::headerData(int section, Qt::Orientation orientation, int 
   return QVariant();
 }
 
+bool ReadingTable::setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole){
+  Q_UNUSED(value); Q_UNUSED(role);
+  emit dataChanged(index, index);
+  return false;
+}
+
+bool ReadingTable::setHeaderData(int section, Qt::Orientation orientation, const QVariant& value, int role = Qt::EditRole){
+  if(orientation == Qt::Horizontal || role != Qt::EditRole)
+    return false;
+  if(section < table.count()){
+    table.at(section)->setName(value.toString());
+    emit headerDataChanged(Qt::Vertical, section, section);
+    return true;
+  }
+  return false;
+}
+
+Qt::ItemFlags ReadingTable::flags(const QModelIndex& index) const{
+  Q_UNUSED(index);
+  return (Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+}
+
 void ReadingTable::append(Reading* reading){
   if(table.contains(reading) || reading == nullptr)
     return;
@@ -84,6 +106,9 @@ int ReadingTable::row(Reading* r) const{
 }
 
 void ReadingTable::observerUpdate(){
+  for(int i =0; i < table.count(); i++){
+    setHeaderData(i, Qt::Vertical, table.at(i)->getName(), Qt::EditRole);
+  }
   notify();
 }
 
