@@ -235,10 +235,12 @@ void Tree::jsonToTreeNode(const QJsonObject& json, TreeNode* parent){
   TreeNode* node;
   if(parent == nullptr){
     node = root->appendChild(new TreeNode(name));
+    emit dataChanged(getIndex(node), getIndex(node));
     node->parent = nullptr;
   }
   else{
     node = parent->appendChild(new TreeNode(name));
+    emit dataChanged(getIndex(node), getIndex(node));
   }
   for(QJsonValue j : children_array){
     if(j.isObject())
@@ -254,10 +256,12 @@ void Tree::jsonToLeafNode(const QJsonObject& json, TreeNode* parent){
   TreeNode* node;
   if(parent == nullptr){
     node = root->appendChild(new LeafNode(SensorFactory::loadSensor(name, id, type)));
+    emit dataChanged(getIndex(node), getIndex(node));
     node->parent = nullptr;
   }
   else
     node = parent->appendChild(new LeafNode(SensorFactory::loadSensor(name, id, type)));
+    emit dataChanged(getIndex(node), getIndex(node));
   LeafNode* leaf = dynamic_cast<LeafNode*>(node);
   leaf->attach(this);
   if(has_minmax)
@@ -340,10 +344,12 @@ void Tree::importTreeNode(const QJsonObject& json, TreeNode* parent, QMap<int,in
   TreeNode* node = new TreeNode(name);
   if(parent == nullptr){
     root->appendChild(node);
+    emit dataChanged(getIndex(node), getIndex(node));
     node->parent = nullptr;
   }
   else{
     node = parent->appendChild(node);
+    emit dataChanged(getIndex(node), getIndex(node));
   }
   for(QJsonValue j : children_array){
     if(j.isObject())
@@ -361,10 +367,12 @@ void Tree::importLeafNode(const QJsonObject& json, TreeNode* parent, QMap<int,in
   changed_ids->insert(old_id, sensor->getId());
   if(parent == nullptr){
     node = root->appendChild(new LeafNode(sensor));
+    emit dataChanged(getIndex(node), getIndex(node));
     node->parent = nullptr;
   }
   else
     node = parent->appendChild(new LeafNode(sensor));
+    emit dataChanged(getIndex(node), getIndex(node));
   LeafNode* leaf = dynamic_cast<LeafNode*>(node);
   leaf->attach(this);
   if(has_minmax)

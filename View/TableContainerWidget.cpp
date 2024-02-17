@@ -38,6 +38,4 @@ void TableContainerWidget::addNewTable(const QString& type, ReadingTable* table)
   displays.append(new ReadingDisplayWidget(table));
   displays.last();
   tabs->addTab(displays.last(), type);
-  connect(displays.last(), &ReadingDisplayWidget::readingcontained, this, &TableContainerWidget::changeTab);
-  connect(this, &TableContainerWidget::searchReading, displays.last(), &ReadingDisplayWidget::highlightReading);
 }

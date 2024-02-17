@@ -5,12 +5,14 @@ ReadingListWidget::ReadingListWidget(ReadingList* rl, QWidget* parent): QWidget(
   table_view->setModel(readinglist);
   delete_reading = new QPushButton("Delete Reading");
   add_to_display = new QPushButton("Add to display");
+  remove_from_display = new QPushButton("Remove from display");
 
   QVBoxLayout* vbox = new QVBoxLayout(this);
   QHBoxLayout* buttonbox = new QHBoxLayout();
   vbox->setAlignment(Qt::AlignTop | Qt::AlignLeft);
   buttonbox->setAlignment(Qt::AlignTop | Qt::AlignLeft);
   buttonbox->addWidget(add_to_display);
+  buttonbox->addWidget(remove_from_display);
   buttonbox->addWidget(delete_reading);
   buttonbox->addStretch();
   vbox->addLayout(buttonbox);
@@ -19,6 +21,7 @@ ReadingListWidget::ReadingListWidget(ReadingList* rl, QWidget* parent): QWidget(
 
   connect(delete_reading, &QPushButton::clicked, this, &ReadingListWidget::deleteReadingClicked);
   connect(add_to_display, &QPushButton::clicked, this, &ReadingListWidget::addClicked);
+  connect(remove_from_display, &QPushButton::clicked, this, &ReadingListWidget::removeClicked);
 }
 
 void ReadingListWidget::deleteReadingClicked(){

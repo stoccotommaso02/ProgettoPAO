@@ -20,8 +20,6 @@ public:
   ReadingDisplayWidget(ReadingTable* table, QWidget* parent = nullptr);
   ReadingTable* getReadingTable() const;
   virtual void observerUpdate() override;
-signals:
-  void readingcontained(ReadingDisplayWidget* const);
 public slots:
   void highlightReading(Reading*);
 };

@@ -29,8 +29,3 @@ void ReadingDisplayWidget::observerUpdate(){
   }
   show();
 }
-
-void ReadingDisplayWidget::highlightReading(Reading* r){
-  if(reading_table->contains(r))
-    emit readingcontained(this);
-}
