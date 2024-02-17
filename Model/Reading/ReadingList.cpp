@@ -107,6 +107,14 @@ void ReadingList::addToTable(const QModelIndex& index) const{
     TableContainer::tablecontainer()->insertReading(getValue(index));
 }
 
+bool ReadingList::removeFromTable(const QModelIndex& index) const{
+  if(map.contains(getKey(index), getValue(index))){
+    TableContainer::tablecontainer()->removeReading(getValue(index));
+    return true;
+  }
+  return false;
+}
+
 void ReadingList::insert(int k, Reading* r){
   r->attach(this);
   int position = std::distance(map.begin(), map.contains(k)? map.upperBound(k) : map.lowerBound(k));

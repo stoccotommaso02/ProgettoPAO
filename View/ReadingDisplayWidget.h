@@ -7,7 +7,6 @@
 #include<QScrollArea>
 #include"Model/Observer.h"
 #include"Model/Reading/ReadingTable.h"
-#include"RemoveButtonWidget.h"
 #include"ReadingChart.h"
 #include"ChartView.h"
 class ReadingDisplayWidget : public QWidget, public Observer{
@@ -17,9 +16,6 @@ private:
   ReadingTable* reading_table;
   ReadingChart* chart;
   ChartView* chart_view;
-  RemoveButtonWidget* buttons;
-  void makeButton(Reading* r);
-  void deleteButton(Reading* r);
 public:
   ReadingDisplayWidget(ReadingTable* table, QWidget* parent = nullptr);
   ReadingTable* getReadingTable() const;
@@ -27,7 +23,6 @@ public:
 signals:
   void readingcontained(ReadingDisplayWidget* const);
 public slots:
-  void removeReading(Reading* r);
   void highlightReading(Reading*);
 };
 

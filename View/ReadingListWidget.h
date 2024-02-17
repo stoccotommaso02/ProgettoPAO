@@ -16,6 +16,7 @@ private:
   QTableView* table_view;
   QPushButton* delete_reading;
   QPushButton* add_to_display;
+  QPushButton* remove_from_display;
 
 public:
   ReadingListWidget(ReadingList* rl, QWidget* parent =nullptr);
@@ -27,6 +28,7 @@ public slots:
   void findReading(int id, Reading* reading);
   void deleteReadingClicked();
   void addClicked();
+  void removeClicked();
   virtual void observerUpdate() override;
 };
 

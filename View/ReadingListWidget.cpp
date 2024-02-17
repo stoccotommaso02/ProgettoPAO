@@ -32,7 +32,8 @@ void ReadingListWidget::deleteReadingClicked(){
 }
 
 void ReadingListWidget::findReading(int id, Reading* reading){
-  table_view->selectionModel()->select(readinglist->find(id, reading), QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Current);
+  table_view->selectionModel()->select(readinglist->find(id, reading), QItemSelectionModel::ClearAndSelect);
+  table_view->selectionModel()->setCurrentIndex(readinglist->find(id, reading), QItemSelectionModel::ClearAndSelect);
 }
 
 void ReadingListWidget::addClicked(){
@@ -40,6 +41,13 @@ void ReadingListWidget::addClicked(){
   if(index.isValid()){
     readinglist->addToTable(index);
     emit displayReading(readinglist->reading(index));
+  }
+}
+
+void ReadingListWidget::removeClicked(){
+  QModelIndex index = table_view->selectionModel()->currentIndex();
+  if(index.isValid()){
+    readinglist->removeFromTable(index);
   }
 }
 

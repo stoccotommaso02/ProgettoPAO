@@ -32,6 +32,7 @@ public:
   virtual Qt::ItemFlags flags(const QModelIndex& index) const;
   virtual bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
   void addToTable(const QModelIndex& index) const;
+  bool removeFromTable(const QModelIndex& index) const;
   void insert(int key, Reading* reading);
   void remove(int key);
   void remove(Reading* reading);
