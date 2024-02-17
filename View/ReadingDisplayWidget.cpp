@@ -2,44 +2,6 @@
 #include<QVBoxLayout>
 #include<QHBoxLayout>
 
-ReadingDisplayWidget::Buttons::Buttons(Reading* r, QWidget* parent):QPushButton(parent){
-  reading=r;
-  reading->attach(this);
-  setText("Delete" + reading->getName());
-  connect(this,&QPushButton::clicked,this,&ReadingDisplayWidget::Buttons::remove);
-}
-
-ReadingDisplayWidget::Buttons::~Buttons(){
-  reading->detach(this);
-}
-
-void ReadingDisplayWidget::Buttons::observerUpdate() {
-  setText("Delete" + reading->getName());
-}
-
-void ReadingDisplayWidget::Buttons::remove(){
-  emit deleteclicked(reading);
-}
-
-void ReadingDisplayWidget::makeButton(Reading* r){
-  buttons.append(new Buttons(r));
-  hbox->addWidget(buttons.last());
-  connect(buttons.last(), &ReadingDisplayWidget::Buttons::deleteclicked, this, &ReadingDisplayWidget::removeReading);
-}
-
-void ReadingDisplayWidget::deleteButton(Reading* r){
-  auto it=buttons.begin();
-  for(it;it!=buttons.end();it++){
-    if(r==(*it)->reading)
-      break;
-  }
-  if(it!=buttons.end()){
-    hbox->removeWidget(*it);
-    delete(*it);
-    buttons.erase(it);
-  }
-}
-
 ReadingDisplayWidget::ReadingDisplayWidget(ReadingTable* table, QWidget* parent): QWidget(parent){
   chart = new ReadingChart();
   chart_view = new ChartView(chart);
@@ -67,14 +29,39 @@ void ReadingDisplayWidget::observerUpdate(){
     }
   }
   for(Reading* r : chart->keys()){
-    if(!reading_table->contains(r))
+    if(!reading_table->contains(r)){
       chart->removeReading(r);
       deleteButton(r);
+    }
   }
   show();
+}
+
+void ReadingDisplayWidget::makeButton(Reading* r){
+  buttons.append(new RemovalButton(r));
+  hbox->addWidget(buttons.last());
+  connect(buttons.last(), &RemovalButton::deleteclicked, this, &ReadingDisplayWidget::removeReading);
+}
+
+void ReadingDisplayWidget::deleteButton(Reading* r){
+  auto it=buttons.begin();
+  for(it;it!=buttons.end();it++){
+    if(r==(*it)->reading)
+      break;
+  }
+  if(it!=buttons.end()){
+    hbox->removeWidget(*it);
+    delete(*it);
+    buttons.erase(it);
+  }
 }
 
 void ReadingDisplayWidget::removeReading(Reading* r){
   chart->removeReading(r);
   deleteButton(r);
+}
+
+void ReadingDisplayWidget::highlightReading(Reading* r){
+  if(reading_table->contains(r))
+    emit readingcontained(this);
 }

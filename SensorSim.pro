@@ -44,6 +44,7 @@ HEADERS +=  Model/Sensor/BaseSensor.h \
             View/TableContainerWidget.h \
             View/ReadingChart.h \
             View/ChartView.h \
+            View/RemovalButton.h \
             View/NodesWidget.h
 
 
@@ -86,6 +87,7 @@ SOURCES +=  Model/Sensor/BaseSensor.cpp \
             View/ResultsWidget.cpp \
             View/ReadingChart.cpp \
             View/ChartView.cpp \
+            View/RemovalButton.cpp \
             main.cpp
 
 RESOURCES += \

@@ -7,26 +7,14 @@
 #include<QScrollArea>
 #include"Model/Observer.h"
 #include"Model/Reading/ReadingTable.h"
+#include"RemovalButton.h"
 #include"ReadingChart.h"
 #include"ChartView.h"
 class ReadingDisplayWidget : public QWidget, public Observer{
   Q_OBJECT
 
 private:
-  class Buttons: public QPushButton, public Observer{
-    Q_OBJECT
-    public:
-    Reading* reading;
-    Buttons(Reading* r, QWidget* parent=nullptr);
-    ~Buttons();
-    void observerUpdate() override;
-    signals:
-    void deleteclicked(Reading* r);
-    public slots:
-    void remove();
-    
-  };
-  QList<Buttons*> buttons;
+  QList<RemovalButton*> buttons;
   ReadingTable* reading_table;
   ReadingChart* chart;
   ChartView* chart_view;
@@ -41,7 +29,7 @@ signals:
   void readingcontained(ReadingDisplayWidget* const);
 public slots:
   void removeReading(Reading* r);
-
+  void highlightReading(Reading*);
 };
 
 #endif
