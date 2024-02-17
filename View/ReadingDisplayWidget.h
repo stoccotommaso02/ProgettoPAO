@@ -11,7 +11,6 @@
 #include"ChartView.h"
 class ReadingDisplayWidget : public QWidget, public Observer{
   Q_OBJECT
-
 private:
   ReadingTable* reading_table;
   ReadingChart* chart;
@@ -20,8 +19,6 @@ public:
   ReadingDisplayWidget(ReadingTable* table, QWidget* parent = nullptr);
   ReadingTable* getReadingTable() const;
   virtual void observerUpdate() override;
-public slots:
-  void highlightReading(Reading*);
 };
 
 #endif

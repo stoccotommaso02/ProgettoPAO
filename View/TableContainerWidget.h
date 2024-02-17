@@ -19,10 +19,6 @@ public:
   virtual void observerUpdate() override;
 signals:
   void searchReading(Reading*);
-
-public slots:
-  void highlightReading(Reading* reading);
-  void changeTab(ReadingDisplayWidget* const);
 };
 
 #endif

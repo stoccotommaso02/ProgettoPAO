@@ -25,11 +25,11 @@ MainWindow::MainWindow(Environment* e, QWidget* parent): QMainWindow(parent), en
   splitter->addWidget(bottomsplit);
 
   QAction* save_environment = new QAction("Save");
-  save_environment->setShortcut(Qt::CTRL | Qt::Key_S);
+  save_environment->setShortcut(QKeyCombination(Qt::ControlModifier | Qt::ShiftModifier, Qt::Key_S));
   QAction* save_as_environment = new QAction("Save As...");
-  save_as_environment->setShortcut(QKeyCombination(Qt::ShiftModifier));
+  save_as_environment->setShortcut(QKeyCombination(Qt::ControlModifier | Qt::ShiftModifier, Qt::Key_S));
   QAction* load_environment = new QAction("Load");
-  load_environment->setShortcut(Qt::CTRL | Qt::Key_O);
+  load_environment->setShortcut(QKeyCombination(Qt::ControlModifier, Qt::Key_O));
   QAction* import_section = new QAction("Import section");
   QAction* export_section = new QAction("Export Section");
   

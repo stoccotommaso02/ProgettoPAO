@@ -8,14 +8,6 @@ TableContainerWidget::TableContainerWidget(TableContainer* tc, QWidget* parent):
   hbox->addWidget(tabs);
 }
 
-void TableContainerWidget::highlightReading(Reading* r){
-  emit searchReading(r);
-}
-
-void TableContainerWidget::changeTab(ReadingDisplayWidget* const widget){
-  tabs->setCurrentWidget(widget);
-}
-
 void TableContainerWidget::observerUpdate(){
   int count = tablecontainer->count();
   for(int i=0; i < count; i++){
