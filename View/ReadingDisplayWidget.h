@@ -7,18 +7,17 @@
 #include<QScrollArea>
 #include"Model/Observer.h"
 #include"Model/Reading/ReadingTable.h"
-#include"RemovalButton.h"
+#include"RemoveButtonWidget.h"
 #include"ReadingChart.h"
 #include"ChartView.h"
 class ReadingDisplayWidget : public QWidget, public Observer{
   Q_OBJECT
 
 private:
-  QList<RemovalButton*> buttons;
   ReadingTable* reading_table;
   ReadingChart* chart;
   ChartView* chart_view;
-  QHBoxLayout* hbox;
+  RemoveButtonWidget* buttons;
   void makeButton(Reading* r);
   void deleteButton(Reading* r);
 public:

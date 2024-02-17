@@ -4,12 +4,9 @@
 #include"../Model/Observer.h"
 #include"../Model/Reading/Reading.h"
 
-class ReadingDisplayWidget;
-
 class RemovalButton: public QPushButton, public Observer{
   Q_OBJECT
-  friend class ReadingDisplayWidget;
-private:
+public:
   Reading* reading;
   RemovalButton(Reading* r, QWidget* parent=nullptr);
   ~RemovalButton();
