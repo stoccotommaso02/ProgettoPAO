@@ -4,7 +4,7 @@ Reading::~Reading(){
   delete reading;
 }
 
-void Reading::setName(QString n){
+void Reading::setName(const QString& n){
   this->name = n;
   notify();
 };

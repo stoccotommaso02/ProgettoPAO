@@ -1,7 +1,6 @@
 #include"TreeWidget.h"
-#include"NodesWidget.h"
 
-TreeWidget::TreeWidget(Tree* t, QWidget* parent): QWidget(parent), tree_model(t){
+TreeWidget::TreeWidget(Tree* t, QWidget* parent): tree_model(t), QWidget(parent){
   QVBoxLayout* vbox = new QVBoxLayout(this);
   vbox->setAlignment(Qt::AlignTop | Qt::AlignCenter);
   QHBoxLayout* hbox = new QHBoxLayout();

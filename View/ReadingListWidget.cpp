@@ -25,6 +25,7 @@ void ReadingListWidget::deleteReadingClicked(){
   QModelIndex index = table_view->selectionModel()->currentIndex();
   if(!index.isValid()){
     QMessageBox::StandardButton warn = QMessageBox::warning(this, "Invalid index", "Please select a Reading", QMessageBox::Ok);
+    Q_UNUSED(warn);
     return;
   }
   readinglist->remove(index);

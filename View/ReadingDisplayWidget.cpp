@@ -1,60 +1,80 @@
 #include"ReadingDisplayWidget.h"
 #include<QVBoxLayout>
 #include<QHBoxLayout>
+
+ReadingDisplayWidget::Buttons::Buttons(Reading* r, QWidget* parent):QPushButton(parent){
+  reading=r;
+  reading->attach(this);
+  setText("Delete" + reading->getName());
+  connect(this,&QPushButton::clicked,this,&ReadingDisplayWidget::Buttons::remove);
+}
+
+ReadingDisplayWidget::Buttons::~Buttons(){
+  reading->detach(this);
+}
+
+void ReadingDisplayWidget::Buttons::observerUpdate() {
+  setText("Delete" + reading->getName());
+}
+
+void ReadingDisplayWidget::Buttons::remove(){
+  emit deleteclicked(reading);
+}
+
+void ReadingDisplayWidget::makeButton(Reading* r){
+  buttons.append(new Buttons(r));
+  hbox->addWidget(buttons.last());
+  connect(buttons.last(), &ReadingDisplayWidget::Buttons::deleteclicked, this, &ReadingDisplayWidget::removeReading);
+}
+
+void ReadingDisplayWidget::deleteButton(Reading* r){
+  auto it=buttons.begin();
+  for(it;it!=buttons.end();it++){
+    if(r==(*it)->reading)
+      break;
+  }
+  if(it!=buttons.end()){
+    hbox->removeWidget(*it);
+    delete(*it);
+    buttons.erase(it);
+  }
+}
+
 ReadingDisplayWidget::ReadingDisplayWidget(ReadingTable* table, QWidget* parent): QWidget(parent){
-  tabs = new QTabWidget();
-  QHBoxLayout* hbox = new QHBoxLayout(this);
-  hbox->addWidget(tabs);
+  chart = new ReadingChart();
+  chart_view = new ChartView(chart);
   reading_table = table;
   reading_table->attach(this);
-  chart = new ReadingChart();
-  QWidget* table_button = new QWidget();
-  QVBoxLayout* vbox = new QVBoxLayout(table_button);
-  table_view = new QColumnView();
-  table_view->setModel(table);
-  chart_view = new ChartView(chart);
-  remove_reading = new QPushButton("Remove Reading");
-  vbox->addWidget(table_view);
-  vbox->addWidget(remove_reading);
+  QWidget* button= new QWidget();
+  hbox= new QHBoxLayout(button);
+  QVBoxLayout* vbox = new QVBoxLayout(this);
+  QScrollArea* scroll_area = new QScrollArea();
+  scroll_area->setWidget(button);
+  vbox->addWidget(chart_view);
+  vbox->addWidget(scroll_area);
   vbox->setAlignment(Qt::AlignTop | Qt::AlignLeft);
-  tabs->addTab(table_button, "Table");
-  tabs->addTab(chart_view, "Chart");
-
-  connect(remove_reading, &QPushButton::clicked, this, &ReadingDisplayWidget::removeReading);
 }
 
 ReadingTable* ReadingDisplayWidget::getReadingTable() const{
   return reading_table;
 }
 
-void ReadingDisplayWidget::removeReading(){
-  QModelIndex index = table_view->selectionModel()->currentIndex();
-  if(!index.isValid())
-    return;
-  Reading* removed = reading_table->getReading(index);
-  chart->removeReading(removed);
-  reading_table->remove(removed);
-}
-
-void ReadingDisplayWidget::highlightReading(Reading* r){
-  if(reading_table->contains(r)){
-    int row = reading_table->row(r);
-    tabs->setCurrentWidget(table_view);
-    table_view->selectionModel()->select((row == reading_table->rowCount())? QModelIndex() : reading_table->index(row, 0, QModelIndex()), QItemSelectionModel::ClearAndSelect);
-    emit readingcontained(this);
-  }
-}
-
 void ReadingDisplayWidget::observerUpdate(){
   for(Reading* r : reading_table->getTable()){
     if(!chart->QMap::contains(r)){
       chart->addReading(r);
+      makeButton(r);
     }
   }
   for(Reading* r : chart->keys()){
     if(!reading_table->contains(r))
       chart->removeReading(r);
+      deleteButton(r);
   }
-  table_view->setModel(table_view->model());
   show();
+}
+
+void ReadingDisplayWidget::removeReading(Reading* r){
+  chart->removeReading(r);
+  deleteButton(r);
 }

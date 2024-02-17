@@ -16,7 +16,7 @@ private:
 public:
   Reading(const QString& n, const QList<double>* r): name(n), reading(r) {};
   virtual ~Reading();
-  void setName(QString n);
+  void setName(const QString& n);
   QString getName() const;
   int getSize() const;
   double getValue(int index) const;

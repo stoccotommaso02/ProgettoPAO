@@ -18,3 +18,7 @@ void BaseSensor::setName(const QString& s){
 int BaseSensor::getId() const{
   return id;
 }
+
+void BaseSensor::resetCounter(){
+  counter = 0;
+}

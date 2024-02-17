@@ -100,6 +100,7 @@ bool Environment::loadEnvironment(const QString& path){
   }
   QByteArray save_data = load_file.readAll();
   QJsonDocument jsondoc = QJsonDocument::fromJson(save_data);
+  BaseSensor::resetCounter();
   return fromJson(jsondoc.object());
 }
 

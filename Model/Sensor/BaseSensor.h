@@ -18,6 +18,7 @@ public:
   QString getName() const;
   void setName(const QString& s);
   int getId() const;
+  static void resetCounter();
   virtual Reading* simulate(const QString& name, int entries) const =0;
   virtual BaseSensor* clone() const =0;
   virtual ~BaseSensor() =default;
