@@ -240,7 +240,6 @@ void Tree::jsonToTreeNode(const QJsonObject& json, TreeNode* parent){
   else{
     node = parent->appendChild(new TreeNode(name));
   }
-  emit dataChanged(getIndex(node), getIndexd(node));
   for(QJsonValue j : children_array){
     if(j.isObject())
       jsonToNode(j.toObject(), node);
@@ -259,7 +258,6 @@ void Tree::jsonToLeafNode(const QJsonObject& json, TreeNode* parent){
   }
   else
     node = parent->appendChild(new LeafNode(SensorFactory::loadSensor(name, id, type)));
-  emit dataChanged(getIndex(node), getIndex(node));
   LeafNode* leaf = dynamic_cast<LeafNode*>(node);
   leaf->attach(this);
   if(has_minmax)
@@ -347,7 +345,6 @@ void Tree::importTreeNode(const QJsonObject& json, TreeNode* parent, QMap<int,in
   else{
     node = parent->appendChild(node);
   }
-  emit dataChanged(getIndex(node), getIndex(node));
   for(QJsonValue j : children_array){
     if(j.isObject())
       importNode(j.toObject(), node, changed_ids);
@@ -368,7 +365,6 @@ void Tree::importLeafNode(const QJsonObject& json, TreeNode* parent, QMap<int,in
   }
   else
     node = parent->appendChild(new LeafNode(sensor));
-  emit dataChanged(getIndex(node), getIndex(node));
   LeafNode* leaf = dynamic_cast<LeafNode*>(node);
   leaf->attach(this);
   if(has_minmax)
