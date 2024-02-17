@@ -1,7 +1,7 @@
 #ifndef READINGDISPLAYWIDGET_H
 #define READINGDISPLAYWIDGET_h
 #include<QWidget>
-#include<QPushButton>
+#include<QHBoxLayout>
 #include<QTabWidget>
 #include<QColumnView>
 #include<QScrollArea>

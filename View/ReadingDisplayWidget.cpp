@@ -7,11 +7,12 @@ ReadingDisplayWidget::ReadingDisplayWidget(ReadingTable* table, QWidget* parent)
   chart_view = new ChartView(chart);
   reading_table = table;
   reading_table->attach(this);
-  QWidget* button= new QWidget();
-  hbox= new QHBoxLayout(button);
+  QWidget* buttons= new QWidget();
+  hbox = new QHBoxLayout(buttons);
+  hbox->setAlignment(Qt::AlignLeft | Qt::AlignBottom);
   QVBoxLayout* vbox = new QVBoxLayout(this);
   QScrollArea* scroll_area = new QScrollArea();
-  scroll_area->setWidget(button);
+  scroll_area->setWidget(buttons);
   vbox->addWidget(chart_view);
   vbox->addWidget(scroll_area);
   vbox->setAlignment(Qt::AlignTop | Qt::AlignLeft);
